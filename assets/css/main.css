@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-text;
+
+    scroll-behavior: smooth;
+  }
+
+  h1 {
+    @apply font-bold font-title;
+  }
+
+  h2 {
+    @apply font-bold font-title;
+  }
+
+  h3 {
+    @apply font-bold font-title;
+  }
+
+  blockquote {
+    @apply italic;
+  }
+}
+
+@layer utilities {
+  .html-richtext ul {
+    @apply list-disc ml-6 my-2;
+  }
+
+  .html-richtext ol {
+    @apply list-decimal ml-6 my-2;
+  }
+
+  .html-richtext li p {
+    @apply mb-0;
+  }
+
+  .html-richtext p {
+    @apply mb-6;
+  }
+
+  .html-richtext hr {
+    @apply my-8;
+  }
+}

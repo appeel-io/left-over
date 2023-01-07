@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@appeel.io/eslint-config-vue"
+  ]
+}
