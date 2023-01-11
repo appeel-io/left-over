@@ -20,7 +20,10 @@ const logout = async() => {
 <template>
   <nav class="bg-slate-200">
     <div class="container flex justify-between gap-2 p-4 ietms-center">
-      <h1>Left Over logo</h1>
+      <h1 class="text-2xl">
+        Left-over
+      </h1>
+
       <div class="flex items-center gap-4">
         <NavigationLink
           v-for="route in routes"
