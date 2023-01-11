@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/auth'
 const user = useSupabaseUser()
 const store = useAuthStore()
 const router = useRouter()
-const formData = reactive({ email: '', password: '', magiclink: false })
+const formData = ref({ email: '', password: '', magiclink: false })
 const error = ref(null)
 const loading = ref(false)
 
@@ -15,8 +15,7 @@ const login = async(data) => {
     loading.value = true
     magiclink ? await store.login({ email }) : await store.login({ email, password })
 
-    if (!magiclink) router.push({ path: '/' })
-    else router.push({ path: '/magic-link-notice' })
+    router.push({ path: !magiclink ? '/' : '/magic-link-notice' })
   }
   catch (err) {
     error.value = err.message
