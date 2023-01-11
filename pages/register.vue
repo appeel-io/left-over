@@ -13,7 +13,7 @@ const registration = async({ __init, email, password, ...form }) => {
   loading.value = true
   try {
     await store.register({ email, password }, form)
-    router.push({ path: '/' })
+    router.push({ path: '/verify-email' })
   }
   catch (err) {
     error.value = err.message
@@ -64,9 +64,7 @@ watchEffect(() => {
           />
           <Checkbox name="terms" label="I accept the terms and conditions" validation="accepted" />
           <div class="mx-auto">
-            <button type="submit" :disabled="loading">
-              Register
-            </button>
+            <Button type="submit" emoji="🔐" label="Register" :disabled="loading" />
           </div>
         </div>
       </FormKit>

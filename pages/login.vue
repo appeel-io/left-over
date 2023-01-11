@@ -15,7 +15,7 @@ const login = async(data) => {
     loading.value = true
     magiclink ? await store.login({ email }) : await store.login({ email, password })
 
-    router.push({ path: !magiclink ? '/' : '/magic-link-notice' })
+    router.push({ path: !magiclink ? '/' : '/magic-link' })
   }
   catch (err) {
     error.value = err.message
@@ -86,9 +86,7 @@ watchEffect(() => {
           <Checkbox name="magiclink" label="Magic link" />
 
           <div class="mx-auto">
-            <button type="submit" :disabled="loading">
-              🔐 Inloggen
-            </button>
+            <Button type="submit" emoji=" 🔐" label="Login" :disabled="loading" />
           </div>
         </div>
       </FormKit>
