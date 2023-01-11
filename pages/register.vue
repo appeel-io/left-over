@@ -34,7 +34,11 @@ watchEffect(() => {
 </script>
 
 <template>
-  <NuxtLayout name="centered">
+  <Head>
+    <Title>Register</Title>
+  </Head>
+
+  <NuxtLayout name="centered-box">
     <section class="space-y-8">
       <div class="space-y-4">
         <img class="w-32 mx-auto rounded-full" src="~/assets/icons/favicon.png" alt="Appeel logo">
@@ -61,7 +65,7 @@ watchEffect(() => {
           <Checkbox name="terms" label="I accept the terms and conditions" validation="accepted" />
           <div class="mx-auto">
             <button type="submit" :disabled="loading">
-              Registrate
+              Register
             </button>
           </div>
         </div>

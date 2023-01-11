@@ -19,9 +19,9 @@ const logout = async() => {
 
 <template>
   <nav class="bg-slate-200">
-    <div class="container p-4 flex gap-2 justify-between ietms-center">
+    <div class="container flex justify-between gap-2 p-4 ietms-center">
       <h1>Left Over logo</h1>
-      <div class="flex gap-4 items-center">
+      <div class="flex items-center gap-4">
         <NavigationLink
           v-for="route in routes"
           :key="route.url"
@@ -31,7 +31,7 @@ const logout = async() => {
         <NavigationLink v-if="user" label="Logout" @click="logout" />
         <template v-if="!user">
           <NavigationLink label="Login" url="/login" />
-          <NuxtLink to="/registrate">
+          <NuxtLink to="/register">
             <Button label="Register" />
           </NuxtLink>
         </template>

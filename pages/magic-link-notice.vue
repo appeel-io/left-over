@@ -7,7 +7,11 @@ watchEffect(() => {
 </script>
 
 <template>
-  <NuxtLayout name="centered">
+  <Head>
+    <Title>Notice</Title>
+  </Head>
+
+  <NuxtLayout name="centered-box">
     <section class="space-y-6">
       <div class="space-y-8">
         <h1 class="text-center">

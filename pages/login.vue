@@ -36,7 +36,11 @@ watchEffect(() => {
 </script>
 
 <template>
-  <NuxtLayout name="centered">
+  <Head>
+    <Title>Login</Title>
+  </Head>
+
+  <NuxtLayout name="centered-box">
     <section class="space-y-8">
       <div class="space-y-4">
         <img
