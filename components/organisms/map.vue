@@ -114,13 +114,13 @@ setTimeout(() => {
   <section class="relative">
     <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
     <Button
-      class="z-20 right-4 top-7 absolute"
+      class="z-20 right-10 top-7 absolute"
       label="enable location"
       @click="enableLocation"
     />
     <FoodItemDetail
       v-if="selectedLocation"
-      class="z-20 right-4 bottom-7 absolute"
+      class="z-20 right-10 bottom-7 absolute"
       :user-latitude="50"
       :user-longitude="5"
       :food-item="{
