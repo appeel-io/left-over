@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const formKitTailwind = require('@formkit/themes/tailwindcss')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
+    './formkit.config.js',
     './app.vue',
   ],
   theme: {
@@ -30,5 +32,5 @@ module.exports = {
       xl: '1920px',
     },
   },
-  plugins: [],
+  plugins: [formKitTailwind],
 }

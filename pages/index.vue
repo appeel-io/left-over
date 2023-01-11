@@ -1,3 +1,7 @@
+<script setup>
+definePageMeta({ middleware: ['auth'] })
+</script>
+
 <template>
   <NuxtLayout>
     <div class="flex flex-col">
