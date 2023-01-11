@@ -92,11 +92,11 @@ setTimeout(() => {
 <template>
   <section class="container relative">
     <div class="flex flex-row">
-      <div class="bg-red-400">
+      <div class="bg-slate-300">
         Sidebar filters
       </div>
       <div class="flex flex-col">
-        <div class="bg-red-100">
+        <div class="bg-slate-300">
           search
         </div>
         <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
