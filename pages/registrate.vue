@@ -60,9 +60,7 @@ watchEffect(() => {
           />
           <Checkbox name="terms" label="I accept the terms and conditions" validation="accepted" />
           <div class="mx-auto">
-            <button type="submit" :disabled="loading">
-              Registrate
-            </button>
+            <Button type="submit" emoji="🔐" label="Register" :disabled="loading" />
           </div>
         </div>
       </FormKit>

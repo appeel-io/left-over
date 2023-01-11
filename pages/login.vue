@@ -82,9 +82,7 @@ watchEffect(() => {
           <Checkbox name="magiclink" label="Magic link" />
 
           <div class="mx-auto">
-            <button type="submit" :disabled="loading">
-              🔐 Inloggen
-            </button>
+            <Button type="submit" emoji=" 🔐" label="Login" :disabled="loading" />
           </div>
         </div>
       </FormKit>
