@@ -8,13 +8,13 @@ watchEffect(() => {
 
 <template>
   <Head>
-    <Title>Notice</Title>
+    <Title>Magic link</Title>
   </Head>
 
   <NuxtLayout name="centered-box">
-    <section class="space-y-6">
-      <div class="space-y-8">
-        <h1 class="text-center">
+    <section>
+      <div class="space-y-4 text-center">
+        <h1 class="text-3xl">
           Check your mail
         </h1>
         <p>

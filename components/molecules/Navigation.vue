@@ -18,10 +18,19 @@ const logout = async() => {
 </script>
 
 <template>
-  <nav class="bg-slate-200">
-    <div class="container p-4 flex gap-2 justify-between ietms-center">
-      <h1>Left Over logo</h1>
-      <div class="flex gap-4 items-center">
+  <nav class="bg-gray-100">
+    <div class="container flex justify-between gap-2 p-4 ietms-center">
+      <h1 class="flex items-center space-x-2 text-2xl">
+        <img
+          class="w-12 mx-auto rounded-full"
+          src="~/assets/icons/favicon.png"
+          alt="Appeel logo"
+        >
+
+        <span class="text-primary">Left-over</span>
+      </h1>
+
+      <div class="flex items-center gap-4">
         <NavigationLink
           v-for="route in routes"
           :key="route.url"
@@ -31,7 +40,7 @@ const logout = async() => {
         <NavigationLink v-if="user" label="Logout" @click="logout" />
         <template v-if="!user">
           <NavigationLink label="Login" url="/login" />
-          <NuxtLink to="/registrate">
+          <NuxtLink to="/register">
             <Button label="Register" />
           </NuxtLink>
         </template>

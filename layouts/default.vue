@@ -1,8 +1,13 @@
 <template>
-  <main class="min-h-screen">
-    <Navigation />
-    <div class="mx-auto space-y-8 container p-4">
+  <section class="flex flex-col min-h-screen">
+    <header class="shrink-0">
+      <Navigation />
+    </header>
+
+    <main class="container flex-1 space-y-8">
       <slot />
-    </div>
-  </main>
+    </main>
+
+    <Footer />
+  </section>
 </template>

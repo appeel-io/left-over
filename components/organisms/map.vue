@@ -118,28 +118,30 @@ setTimeout(() => {
       label="enable location"
       @click="enableLocation"
     />
-    <div
+    <FoodItemDetail
       v-if="selectedLocation"
-      class="z-20 gap-3 p-8 bg-white shadow-lg w-64 rounded-2xl right-4 bottom-7 absolute"
-    >
-      <div
-        class="text-xl font-bold text-blue-500"
-        :class="{ 'text-red-500' : selectedLocation.isReserved}"
-      >
-        {{ selectedLocation.name }}
-      </div>
-      <div class="text-base">
-        {{ selectedLocation.age }} old
-      </div>
-      <div class="text-base">
-        {{ selectedLocation.description }}
-      </div>
-      <div class="text-base">
-        {{ selectedLocation.profile.rating }} ⭐️
-      </div>
-      <div class="text-base">
-        {{ selectedLocation.profile.name }}
-      </div>
-    </div>
+      class="z-20 right-4 bottom-7 absolute"
+      :user-latitude="50"
+      :user-longitude="5"
+      :food-item="{
+        name: 'Steak',
+        category: {
+          label: 'Meat',
+          icon: 'mdi:fish',
+          color: '#CC0000'
+        },
+        profile: {
+          name: 'Lander',
+          latitude: 50,
+          longitude: 4,
+        },
+        experation_date_food: new Date(),
+        experation_date_item: new Date(),
+        created_at: new Date(),
+        retrieval_start_range: new Date(),
+        retrieval_end_range: new Date(),
+        description: 'come pick this up asap please',
+      }"
+    />
   </section>
 </template>
