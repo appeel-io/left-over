@@ -1,8 +1,4 @@
 <script setup>
-// defineProps(
-//   { blok: { type: Object, required: true }}
-// )
-
 const map = ref({})
 const mapElement = ref()
 const selectedLocation = ref()
@@ -44,25 +40,50 @@ const openLocation = (loc) => {
   selectedLocation.value = selectedLocation.value === loc ? null : loc
 }
 
+const enableLocation = () => {
+  const customIcon = L.icon({
+    iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/person_1f9d1.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 30],
+  })
+
+  map.value.locate({ setView: true, maxZoom: 15 })
+    .on('locationfound', (e) => {
+      const marker = L.marker([e.latitude, e.longitude], { icon: customIcon })
+      // var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
+      //     weight: 1,
+      //     color: 'blue',
+      //     fillColor: '#cacaca',
+      //     fillOpacity: 0.2
+      // });
+      map.value.addLayer(marker)
+      // map.addLayer(circle)
+    })
+    .on('locationerror', (e) => {
+      // eslint-disable-next-line no-alert
+      alert('Location access denied.')
+    })
+}
+
 const getCategoryIcon = (category) => {
   switch (category) {
     case 'fruit':
       return L.icon({
         iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/red-apple_1f34e.png',
         iconSize: [40, 40],
-        iconAnchor: [20, 40],
+        iconAnchor: [20, 30],
       })
     case 'meat':
       return L.icon({
         iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/cut-of-meat_1f969.png',
         iconSize: [40, 40],
-        iconAnchor: [20, 40],
+        iconAnchor: [20, 30],
       })
     default:
       return L.icon({
         iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/pot-of-food_1f372.png',
         iconSize: [40, 40],
-        iconAnchor: [20, 40],
+        iconAnchor: [20, 30],
       })
   }
 }
@@ -90,18 +111,13 @@ setTimeout(() => {
 </script>
 
 <template>
-  <section class="container relative">
-    <div class="flex flex-row">
-      <div class="bg-slate-300">
-        Sidebar filters
-      </div>
-      <div class="flex flex-col">
-        <div class="bg-slate-300">
-          search
-        </div>
-        <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
-      </div>
-    </div>
+  <section class="relative">
+    <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
+    <Button
+      class="z-20 right-4 top-7 absolute"
+      label="enable location"
+      @click="enableLocation"
+    />
     <div
       v-if="selectedLocation"
       class="z-20 gap-3 p-8 bg-white shadow-lg w-64 rounded-2xl right-4 bottom-7 absolute"
