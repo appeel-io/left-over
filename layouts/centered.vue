@@ -8,6 +8,6 @@
       <slot />
     </main>
 
-    <footer class="shrink-0" />
+    <Footer />
   </section>
 </template>
