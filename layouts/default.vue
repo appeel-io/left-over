@@ -1,5 +1,8 @@
 <template>
-  <main class="flex flex-col items-center justify-center max-w-3xl min-h-screen mx-auto space-y-8">
-    <slot />
+  <main class="min-h-screen">
+    <Navigation />
+    <div class="mx-auto space-y-8 container p-4">
+      <slot />
+    </div>
   </main>
 </template>
