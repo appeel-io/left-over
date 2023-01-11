@@ -8,17 +8,17 @@ watchEffect(() => {
 
 <template>
   <Head>
-    <Title>Notice</Title>
+    <Title>Verify email</Title>
   </Head>
 
   <NuxtLayout name="centered-box">
-    <section class="space-y-6">
-      <div class="space-y-8">
-        <h1 class="text-center">
+    <section>
+      <div class="space-y-4 text-center">
+        <h1 class="text-3xl">
           Check your mail
         </h1>
         <p>
-          We've send a login-link to your email. Please navigate to that link to login.
+          Verify your email and click the link in your email to login automatically.
         </p>
       </div>
     </section>

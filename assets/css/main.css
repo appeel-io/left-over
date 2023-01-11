@@ -10,15 +10,15 @@
   }
 
   h1 {
-    @apply font-bold font-title;
+    @apply font-bold font-title text-5xl uppercase;
   }
 
   h2 {
-    @apply font-bold font-title;
+    @apply font-bold font-title text-3xl uppercase;
   }
 
   h3 {
-    @apply font-bold font-title;
+    @apply font-bold font-title text-2xl uppercase;
   }
 
   blockquote {
@@ -35,12 +35,12 @@
     @apply list-decimal ml-6 my-2;
   }
 
-  .html-richtext li p {
-    @apply mb-0;
-  }
-
   .html-richtext p {
     @apply mb-6;
+  }
+
+  .html-richtext li p {
+    @apply mb-0;
   }
 
   .html-richtext hr {

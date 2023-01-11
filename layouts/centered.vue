@@ -1,9 +1,13 @@
 <template>
-  <div class="w-screen min-h-screen bg-gray-lightest">
-    <div class="container absolute w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
-      <div class="bg-white p-8 rounded-[10px] shadow-2xl">
-        <slot />
-      </div>
-    </div>
-  </div>
+  <section class="flex flex-col min-h-screen">
+    <header class="shrink-0">
+      <Navigation />
+    </header>
+
+    <main class="container flex flex-col items-center justify-center flex-1 space-y-8">
+      <slot />
+    </main>
+
+    <Footer />
+  </section>
 </template>
