@@ -1,39 +1,28 @@
 <script setup>
-import { useAuthStore } from '@/store/auth'
-
 const user = useSupabaseUser()
-const store = useAuthStore()
+const route = useRoute()
 
 const routes = ref([{ url: '/', label: 'Home' }])
-
-const logout = async() => {
-  try {
-    await store.logout()
-    await navigateTo('/')
-  }
-  catch (err) {
-    console.error(err)
-  }
-}
 </script>
 
 <template>
   <nav class="bg-slate-200">
     <div class="container p-4 flex gap-2 justify-between ietms-center">
-      <h1>Left Over logo</h1>
+      <NuxtLink to="/">
+        <h1>Left Over logo</h1>
+      </NuxtLink>
+      <ToggleGetGive v-if="route.fullPath !== '/'" />
       <div class="flex gap-4 items-center">
         <NavigationLink
-          v-for="route in routes"
-          :key="route.url"
-          :url="route.url"
-          :label="route.label"
+          v-for="navRoute in routes"
+          :key="navRoute.url"
+          :url="navRoute.url"
+          :label="navRoute.label"
         />
-        <NavigationLink v-if="user" label="Logout" @click="logout" />
-        <template v-if="!user">
+        <ContextMenu v-if="user" />
+        <template v-else>
           <NavigationLink label="Login" url="/login" />
-          <NuxtLink to="/registrate">
-            <Button label="Register" />
-          </NuxtLink>
+          <NavigationLink label="Register" url="/registrate" />
         </template>
       </div>
     </div>
