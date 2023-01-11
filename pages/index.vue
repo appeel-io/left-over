@@ -8,9 +8,10 @@
         <Title>Home</Title>
       </Head>
 
-      <h1 class="text-3xl text-primary">
+      <!-- <h1 class="text-3xl text-primary">
         Hello, world
-      </h1>
+      </h1> -->
+      <Map />
     </div>
   </NuxtLayout>
 </template>
