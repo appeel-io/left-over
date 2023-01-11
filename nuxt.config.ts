@@ -1,5 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  components: {
+    global: true,
+    dirs: [
+      '~/components/atoms',
+      '~/components/molecules',
+      '~/components/organisms',
+    ],
+  },
   css: [
     '~/assets/css/main.css',
     '~/assets/css/font.css',
