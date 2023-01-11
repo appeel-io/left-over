@@ -1,17 +1,13 @@
-<script setup>
-</script>
-
 <template>
   <NuxtLayout>
     <div class="flex flex-col">
       <Head>
-        <Title>Home</Title>
+        <Title>Give</Title>
       </Head>
 
-      <!-- <h1 class="text-3xl text-primary">
+      <h1 class="text-3xl text-primary">
         Hello, world
-      </h1> -->
-      <Map />
+      </h1>
     </div>
   </NuxtLayout>
 </template>
