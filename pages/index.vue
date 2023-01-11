@@ -8,9 +8,15 @@
 
   <NuxtLayout name="centered">
     <div class="flex flex-col items-center space-y-16">
-      <h1 class="text-primary">
-        Left-over
-      </h1>
+      <div class="flex flex-col items-center space-y-4 text-center">
+        <h1 class="text-primary">
+          Left-over
+        </h1>
+
+        <blockquote class="max-w-sm text-xl">
+          "A <strong>crowdsourced</strong> neighbourhood platform to prevent food waste"
+        </blockquote>
+      </div>
 
       <div class="flex items-center justify-center space-x-16">
         <NuxtLink to="/get" class="flex flex-col items-center max-w-sm p-8 space-y-8 transition-all duration-100 ease-out shadow-2xl hover:scale-110 rounded-3xl lex shadow-primary/75">

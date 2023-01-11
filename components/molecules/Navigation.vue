@@ -18,10 +18,16 @@ const logout = async() => {
 </script>
 
 <template>
-  <nav class="bg-slate-200">
+  <nav class="bg-gray-100">
     <div class="container flex justify-between gap-2 p-4 ietms-center">
-      <h1 class="text-2xl">
-        Left-over
+      <h1 class="flex items-center space-x-2 text-2xl">
+        <img
+          class="w-12 mx-auto rounded-full"
+          src="~/assets/icons/favicon.png"
+          alt="Appeel logo"
+        >
+
+        <span class="text-primary">Left-over</span>
       </h1>
 
       <div class="flex items-center gap-4">
