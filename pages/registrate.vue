@@ -13,7 +13,7 @@ const registration = async({ __init, email, password, ...form }) => {
   loading.value = true
   try {
     await store.register({ email, password }, form)
-    router.push({ path: '/' })
+    router.push({ path: '/verify-email' })
   }
   catch (err) {
     error.value = err.message

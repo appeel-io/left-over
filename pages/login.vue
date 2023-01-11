@@ -15,7 +15,7 @@ const login = async(data) => {
     loading.value = true
     magiclink ? await store.login({ email }) : await store.login({ email, password })
 
-    router.push({ path: !magiclink ? '/' : '/magic-link-notice' })
+    router.push({ path: !magiclink ? '/' : '/magic-link' })
   }
   catch (err) {
     error.value = err.message
