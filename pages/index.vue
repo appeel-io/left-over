@@ -20,7 +20,7 @@
       </div>
 
       <div class="flex items-center justify-center space-x-16">
-        <NuxtLink to="/get" class="flex flex-col items-center max-w-sm p-8 space-y-8 transition-all duration-100 ease-out shadow-2xl hover:scale-110 rounded-3xl lex shadow-primary/75">
+        <NuxtLink to="/get" class="flex flex-col items-center max-w-sm p-8 space-y-8 transition-all duration-100 ease-out bg-white shadow-2xl hover:scale-110 rounded-3xl lex shadow-primary/75">
           <h2 class="text-primary">
             Get <span class="text-black">food</span>
           </h2>
@@ -30,7 +30,7 @@
           </p>
         </NuxtLink>
 
-        <NuxtLink to="/give" class="flex flex-col items-center max-w-sm p-8 space-y-8 transition-all duration-100 ease-out shadow-2xl hover:scale-110 rounded-3xl shadow-primary/75">
+        <NuxtLink to="/give" class="flex flex-col items-center max-w-sm p-8 space-y-8 transition-all duration-100 ease-out bg-white shadow-2xl hover:scale-110 rounded-3xl shadow-primary/75">
           <h2 class="text-primary">
             Give <span class="text-black">food</span>
           </h2>
@@ -40,6 +40,8 @@
           </p>
         </NuxtLink>
       </div>
+
+      <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[85%] h-[85%] z-[-1] blur from-primary/50 via-white to-white/0 bg-gradient-radial" />
     </div>
   </NuxtLayout>
 </template>

@@ -22,6 +22,9 @@ module.exports = {
         text: ['Inter', ...defaultTheme.fontFamily.serif],
       },
     },
+    backgroundImage: {
+      'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+    },
     container: {
       center: true,
     },
