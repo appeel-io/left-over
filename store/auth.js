@@ -22,7 +22,7 @@ export const useAuthStore = defineStore('useAuthStore', {
       const options = { redirectTo: runtimeConfig.supabaseRedirectUrl }
 
       if (credentails?.email && credentails?.password) {
-        const { error } = await supabase.auth.signInWithPassword(credentails, options)
+        const { error } = await supabase.auth.signIn(credentails, options)
         if (error) throw error
       }
       else if (credentails?.email && !credentails?.password) {
