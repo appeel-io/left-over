@@ -110,9 +110,9 @@ onMounted(() => {
     L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`).addTo(map.value)
 
     props.foodItems.forEach((location) => {
-      // L.marker([location.latitude, location.longitude], { icon: getCategoryIcon(location.category) }).addTo(map.value).on('click', () => {
-      //   openLocation(location)
-      // })
+      L.marker([location.address.lat, location.address.long], { icon: getCategoryIcon(location.category.label) }).addTo(map.value).on('click', () => {
+        openLocation(location)
+      })
     })
   }
 })

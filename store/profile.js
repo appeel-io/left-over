@@ -27,5 +27,7 @@ export const useProfileStore = defineStore('useProfileStore', () => {
     }
   }
 
+  onMounted(getUserProfile)
+
   return { profile, error, loading, getUserProfile }
 })
