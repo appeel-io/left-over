@@ -18,7 +18,7 @@
     "eslint": "^8.31.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "nuxt": "3.0.0",
+    "nuxt": "^3.3.2",
     "postcss": "^8.4.21",
     "stylelint": "^14.16.1",
     "stylelint-config-standard": "^29.0.0",
