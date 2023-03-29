@@ -2,22 +2,21 @@
 const user = useSupabaseUser()
 const route = useRoute()
 
-const routes = ref([{ url: '/', label: 'Home' }])
+const routes = ref([
+  { url: '/', label: 'Home' },
+])
 </script>
 
 <template>
-  <nav class="bg-gray-100">
-    <div class="container flex justify-between gap-2 p-4 ietms-center">
-      <h1 class="flex items-center space-x-2 text-2xl">
+  <nav class="bg-gray-100 shadow-md">
+    <div class="container flex justify-between gap-2 p-4 items-center">
+      <NuxtLink to="/">
         <img
-          class="w-12 mx-auto rounded-full"
-          src="~/assets/icons/favicon.png"
+          class="w-12 mx-auto"
+          src="~/assets/images/logo.png"
           alt="Appeel logo"
         >
-
-        <span class="text-primary">Left-over</span>
-      </h1>
-
+      </NuxtLink>
       <ToggleGetGive v-if="route.fullPath !== '/'" />
 
       <div class="flex items-center gap-4">
