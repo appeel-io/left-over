@@ -1,13 +1,8 @@
 <template>
   <NuxtLayout>
-    <div class="flex flex-col">
-      <Head>
-        <Title>Get</Title>
-      </Head>
-
-      <h1 class="text-3xl text-primary">
-        Hello, world
-      </h1>
-    </div>
+    <h1 class="text-3xl text-primary mt-10">
+      Find some Left Overs
+    </h1>
+    <Map class="mt-5" />
   </NuxtLayout>
 </template>

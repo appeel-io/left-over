@@ -17,19 +17,37 @@ const duration = computed(() => {
   return formatDuration(dur, { format: ['days', 'hours', 'minutes'] })
 })
 
+const themeColor = computed(() => {
+  switch (props.foodItem.category) {
+    case 'meat':
+      return '#CC0000'
+    case 'fish':
+      return '#0000CC'
+    case 'vegetables':
+      return '#00CC00'
+    case 'fruit':
+      return '#CC00CC'
+    case 'bread':
+      return '#CC6600'
+    case 'dairy':
+      return '#00CCCC'
+    default:
+      return '#000000'
+  }
+})
 </script>
 
 <template>
   <section>
     <div
       class="gap-3 p-2 bg-white border-2 w-64 rounded-lg relative"
-      :style="{ borderColor: foodItem.category.color }"
+      :style="{ borderColor: themeColor }"
     >
       <div
         class="absolute right-2 top-2 rounded-full text-white px-2"
-        :style="{ backgroundColor: foodItem.category.color }"
+        :style="{ backgroundColor: themeColor }"
       >
-        {{ foodItem.category.label }}
+        {{ foodItem.category }}
       </div>
       <div class="text-2xl font-bold">
         {{ foodItem.name }}
