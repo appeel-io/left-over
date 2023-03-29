@@ -4,7 +4,7 @@
       <Navigation />
     </header>
 
-    <main class="container flex-1 space-y-8">
+    <main class="container flex flex-col flex-1 space-y-8">
       <slot />
     </main>
 
