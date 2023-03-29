@@ -2,22 +2,22 @@
 import { defineStore } from 'pinia'
 import { useSupabaseClient, useSupabaseUser } from '#imports'
 
-export const useAddressStore = defineStore('useAddressStore', () => {
+export const useProfileStore = defineStore('useProfileStore', () => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
 
-  const address = ref(null)
+  const profile = ref(null)
   const error = ref(null)
   const loading = ref(null)
 
-  async function getAddress() {
+  async function getUserProfile() {
     error.value = null
     loading.value = true
     try {
       if (!user.value) throw new Error('User not logged in')
-      const { data, error: err } = await supabase.from('address').select('*').eq('profile', user.value.id)
+      const { data, error: err } = await supabase.from('profiles').select('*').eq('id', user.value.id).single()
       if (err) throw err
-      if (data) address.value = data
+      if (data) profile.value = data
     }
     catch (err) {
       error.value = err
@@ -27,22 +27,18 @@ export const useAddressStore = defineStore('useAddressStore', () => {
     }
   }
 
-  async function updateAddress(id, newData) {
+  async function updateProfile(newData) {
     try {
       const { error } = await supabase
-        .from('address')
-        .upsert({ id, ...newData })
-        .eq('id', id)
+        .from('profiles')
+        .upsert({ id: user.value.id, ...newData })
       if (error) throw error
     }
     catch (error) {
       console.error(error)
     }
   }
-  const options = computed(() => address.value?.map(e => ({
-    id: e.id, label: `${e.street} ${e.house_number}`,
-  })))
-  onMounted(getAddress)
+  onMounted(getUserProfile)
 
-  return { address, error, loading, updateAddress, options }
+  return { profile, error, loading, getUserProfile, updateProfile }
 })

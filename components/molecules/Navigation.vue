@@ -1,48 +1,35 @@
 <script setup>
-import { useAuthStore } from '@/store/auth'
-
 const user = useSupabaseUser()
-const store = useAuthStore()
+const route = useRoute()
 
-const routes = ref([{ url: '/', label: 'Home' }])
-
-const logout = async() => {
-  try {
-    await store.logout()
-    await navigateTo('/')
-  }
-  catch (err) {
-    console.error(err)
-  }
-}
+const routes = ref([
+  { url: '/', label: 'Home' },
+])
 </script>
 
 <template>
-  <nav class="bg-gray-100">
-    <div class="container flex justify-between gap-2 p-4 ietms-center">
-      <h1 class="flex items-center space-x-2 text-2xl">
+  <nav class="bg-gray-100 shadow-md">
+    <div class="container flex justify-between gap-2 p-4 items-center">
+      <NuxtLink to="/">
         <img
-          class="w-12 mx-auto rounded-full"
-          src="~/assets/icons/favicon.png"
+          class="w-12 mx-auto"
+          src="~/assets/images/logo.png"
           alt="Appeel logo"
         >
-
-        <span class="text-primary">Left-over</span>
-      </h1>
+      </NuxtLink>
+      <ToggleGetGive v-if="route.fullPath !== '/'" />
 
       <div class="flex items-center gap-4">
         <NavigationLink
-          v-for="route in routes"
-          :key="route.url"
-          :url="route.url"
-          :label="route.label"
+          v-for="navRoute in routes"
+          :key="navRoute.url"
+          :url="navRoute.url"
+          :label="navRoute.label"
         />
-        <NavigationLink v-if="user" label="Logout" @click="logout" />
-        <template v-if="!user">
+        <ContextMenu v-if="user" />
+        <template v-else>
           <NavigationLink label="Login" url="/login" />
-          <NuxtLink to="/register">
-            <Button label="Register" />
-          </NuxtLink>
+          <NavigationLink label="Register" url="/register" />
         </template>
       </div>
     </div>

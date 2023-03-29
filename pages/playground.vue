@@ -12,7 +12,7 @@
         <Title>Playground</Title>
       </Head>
 
-      <Map />
+      <Map class="mt-5" />
     </div>
   </NuxtLayout>
 </template>

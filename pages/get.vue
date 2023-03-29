@@ -1,13 +1,15 @@
+<script setup>
+import { usePostingsStore } from '@/store/postings'
+const store = usePostingsStore()
+</script>
+
 <template>
   <NuxtLayout>
-    <div class="flex flex-col">
-      <Head>
-        <Title>Get</Title>
-      </Head>
-
-      <h1 class="text-3xl text-primary">
-        Hello, world
-      </h1>
+    <h1 class="text-3xl text-primary mt-10">
+      Find some Left Overs
+    </h1>
+    <div v-if="store.data">
+      <Map :food-items="store.data" class="mt-5" />
     </div>
   </NuxtLayout>
 </template>
