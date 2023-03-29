@@ -12,7 +12,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .select('id, name, category, status, description, expiration_date_food, expiration_date_post, created_at, created_by', { count: 'exact' })
+        .select('id, name, category(label), status, description, expiration_date_post, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
 
       if (error) throw error
 
@@ -27,8 +27,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .select('id, name, category, status, experation_date_food, experation_date_item, created_at, retrieval_start_range, retrieval_end_range, profile (name, rating, latitude, longitude)', { count: 'exact' })
-        .eq('id', id)
+        .select('id, name, category(label), status, description, expiration_date_post, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' }).eq('id', id)
 
       if (error) throw error
 

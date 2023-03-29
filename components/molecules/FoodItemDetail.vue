@@ -58,7 +58,7 @@ const themeColor = computed(() => {
       </div>
 
       <div class="text-base mb-1">
-        experation date: {{ format(foodItem.experation_date_food, 'dd/mm/yy') }}
+        experation date: {{ format(foodItem.experation_date_post, 'dd/mm/yy') }}
       </div>
 
       <div>Available for pickup</div>
