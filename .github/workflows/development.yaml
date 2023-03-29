@@ -28,7 +28,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           scope: 'appeel-io'
           alias-domains: |
-            staging.left-over.app
+            left-over.vercel.app
 
       - name: Vercel preview url
         run: |
