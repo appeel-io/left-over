@@ -31,6 +31,7 @@
     "@pinia/nuxt": "^0.4.6",
     "date-fns": "^2.29.3",
     "ia": "^0.0.1-beta",
-    "pin": "^0.3.0"
+    "pin": "^0.3.0",
+    "click-outside-vue3": "^4.0.1"
   }
 }
