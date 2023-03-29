@@ -126,25 +126,6 @@ setTimeout(() => {
       label="enable location"
       @click="enableLocation"
     />
-    <!-- :food-item="{
-        name: 'Steak',
-        category: {
-          label: 'Meat',
-          icon: 'mdi:fish',
-          color: '#CC0000'
-        },
-        profile: {
-          name: 'Lander',
-          latitude: 50,
-          longitude: 4,
-        },
-        experation_date_food: new Date(),
-        experation_date_item: new Date(),
-        created_at: new Date(),
-        retrieval_start_range: new Date(),
-        retrieval_end_range: new Date(),
-        description: 'come pick this up asap please',
-      }" -->
     <FoodItemDetail
       v-if="selectedLocation"
       class="z-20 right-10 bottom-7 absolute"
