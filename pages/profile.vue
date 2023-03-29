@@ -19,7 +19,7 @@ const addressStore = useAddressStore()
           :value="profileStore.profile"
           submit-label="Save"
           @submit="(data) => {
-            console.log(data)
+            profileStore.updateProfile(data)
           }"
         >
           <h1 class="text-primary">

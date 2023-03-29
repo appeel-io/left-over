@@ -27,7 +27,18 @@ export const useProfileStore = defineStore('useProfileStore', () => {
     }
   }
 
+  async function updateProfile(newData) {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({ id: user.value.id, ...newData })
+      if (error) throw error
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
   onMounted(getUserProfile)
 
-  return { profile, error, loading, getUserProfile }
+  return { profile, error, loading, getUserProfile, updateProfile }
 })
