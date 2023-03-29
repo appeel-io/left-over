@@ -4,46 +4,50 @@ const mapElement = ref()
 const selectedLocation = ref()
 const config = useRuntimeConfig()
 
-const dummyData = [
-  {
-    category: 'fruit',
-    name: 'pineapples',
-    isReserved: false,
-    latitude: 50,
-    longitude: 4,
-    description: 'yummy food for you',
-    experation_date_food: new Date(),
-    experation_date_item: new Date(),
-    created_at: new Date(),
-    retrieval_start_range: new Date(),
-    retrieval_end_range: new Date(),
-    profile: {
-      name: 'Lander',
-      rating: 4.3,
-      latitude: 50,
-      longitude: 4,
-    },
-  },
-  {
-    category: 'meat',
-    name: 'steak',
-    isReserved: true,
-    latitude: 50.4,
-    longitude: 4,
-    description: 'come by and get this yummy steak',
-    experation_date_food: new Date(),
-    experation_date_item: new Date(),
-    created_at: new Date(),
-    retrieval_start_range: new Date(),
-    retrieval_end_range: new Date(),
-    profile: {
-      name: 'Janny',
-      rating: 3.3,
-      latitude: 50,
-      longitude: 4,
-    },
-  },
-]
+const props = defineProps({
+  foodItems: { type: Array, required: true },
+})
+
+// const dummyData = [
+//   {
+//     category: 'fruit',
+//     name: 'pineapples',
+//     isReserved: false,
+//     latitude: 50,
+//     longitude: 4,
+//     description: 'yummy food for you',
+//     experation_date_food: new Date(),
+//     experation_date_item: new Date(),
+//     created_at: new Date(),
+//     retrieval_start_range: new Date(),
+//     retrieval_end_range: new Date(),
+//     profile: {
+//       name: 'Lander',
+//       rating: 4.3,
+//       latitude: 50,
+//       longitude: 4,
+//     },
+//   },
+//   {
+//     category: 'meat',
+//     name: 'steak',
+//     isReserved: true,
+//     latitude: 50.4,
+//     longitude: 4,
+//     description: 'come by and get this yummy steak',
+//     experation_date_food: new Date(),
+//     experation_date_item: new Date(),
+//     created_at: new Date(),
+//     retrieval_start_range: new Date(),
+//     retrieval_end_range: new Date(),
+//     profile: {
+//       name: 'Janny',
+//       rating: 3.3,
+//       latitude: 50,
+//       longitude: 4,
+//     },
+//   },
+// ]
 const openLocation = (loc) => {
   selectedLocation.value = selectedLocation.value === loc ? null : loc
 }
@@ -105,10 +109,10 @@ onMounted(() => {
 
     L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`).addTo(map.value)
 
-    dummyData.forEach((location) => {
-      L.marker([location.latitude, location.longitude], { icon: getCategoryIcon(location.category) }).addTo(map.value).on('click', () => {
-        openLocation(location)
-      })
+    props.foodItems.forEach((location) => {
+      // L.marker([location.latitude, location.longitude], { icon: getCategoryIcon(location.category) }).addTo(map.value).on('click', () => {
+      //   openLocation(location)
+      // })
     })
   }
 })
