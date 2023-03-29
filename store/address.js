@@ -15,7 +15,7 @@ export const useAddressStore = defineStore('useAddressStore', () => {
     loading.value = true
     try {
       if (!user.value) throw new Error('User not logged in')
-      const { data, error: err } = await supabase.from('address').select('*').eq('user', user.value.id)
+      const { data, error: err } = await supabase.from('address').select('*').eq('profile', user.value.id)
       if (err) throw err
       if (data) address.value = data
     }
