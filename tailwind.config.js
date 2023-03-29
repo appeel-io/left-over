@@ -15,7 +15,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#1BA0FC',
+        primary: '#16B1AF',
+        secondary: '#066D6B',
+        accent: '#FFA593',
       },
       fontFamily: {
         title: ['Inter', ...defaultTheme.fontFamily.sans],
