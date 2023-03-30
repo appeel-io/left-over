@@ -3,7 +3,7 @@
 
 <template>
   <Head>
-    <Title>Playground!</Title>
+    <Title>Playground</Title>
   </Head>
 
   <NuxtLayout>
