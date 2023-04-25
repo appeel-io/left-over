@@ -10,15 +10,14 @@ export const useAddressStore = defineStore('useAddressStore', () => {
   const error = ref(null)
   const loading = ref(null)
 
-  async function getGeoFromAdress() {
-    // const { data, error } = await useFetch('https://api.geoapify.com/v1/geocode/search?text=38%20Upper%20Montagu%20Street%2C%20Westminster%20W1H%201LJ%2C%20United%20Kingdom&apiKey=7b25bc7a723044b595137f0306ea297a')
-
-    // console.log(data)
-    // const { data, error } = await supabase.rpc('get_geo_from_address', {
-    //   address: address,
-    // })
-    // if (error) throw error
-    // return data
+  async function getGeoFromAdress(address) {
+    const encodedAddress = `${address.number}%20${address.street}%2C%20${address.city}%2C%20${address.postcode}%2C%20${address.country}`
+    const { data, error } = await useFetch(`https://api.geoapify.com/v1/geocode/search?text=${encodedAddress}&apiKey=7b25bc7a723044b595137f0306ea297a`)
+    if (error.value) throw error.value
+    return {
+      lat: Object.values(data.value.features[0].geometry.coordinates)[1],
+      long: Object.values(data.value.features[0].geometry.coordinates)[0],
+    }
   }
 
   async function getAddress() {
@@ -38,14 +37,17 @@ export const useAddressStore = defineStore('useAddressStore', () => {
     }
   }
 
-  async function updateAddress(newData) {
+  async function updateAddress(id, newData) {
     try {
-      await getGeoFromAdress(newData.address)
-      // const { error } = await supabase
-      //   .from('address')
-      //   .upsert({ user_id: user.value.id, ...newData })
-      //   .eq('id', id)
-      // if (error) throw error
+      const geoData = await getGeoFromAdress(newData)
+      const { error } = await supabase
+        .from('address')
+        .update({
+          ...newData,
+          ...geoData,
+        })
+        .eq('id', id)
+      if (error) throw error
     }
     catch (error) {
       console.error(error)

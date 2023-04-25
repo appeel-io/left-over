@@ -32,8 +32,8 @@ onMounted(() => {
         class="py-2 px-4 max-w-sm"
       >
         <FoodItemDetail
-          :user-latitude="50"
-          :user-longitude="5"
+          :user-latitude="-0.16030636023550826"
+          :user-longitude="51.52016005"
           :food-item="food"
         />
       </SwiperSlide>

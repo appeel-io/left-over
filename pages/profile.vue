@@ -40,7 +40,7 @@ const allergiesStore = useAllergiesStore()
         :value="addressStore.address[0]"
         submit-label="Save"
         @submit="(data) => {
-          addressStore.updateAddress(data)
+          addressStore.updateAddress(addressStore.address[0].id, data)
         }"
       >
         <div
@@ -52,8 +52,8 @@ const allergiesStore = useAllergiesStore()
           <Input name="zip" type="number" label="zip" />
           <Input name="street" type="text" label="street" />
           <Input name="house_number" type="number" label="House number" />
-          <Input name="lat" type="number" label="lat" />
-          <Input name="long" type="number" label="long" />
+          <Input name="city" type="text" label="City" />
+          <Input name="country" type="text" label="Country" />
         </div>
       </FormKit>
     </div>
