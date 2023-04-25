@@ -28,12 +28,15 @@ export const useAllergiesStore = defineStore('useAllergiesStore', () => {
     }
   }
 
+  const options = computed(() => allergies.value?.map(allergy => (allergy.label)))
+
   onMounted(getAllergies)
   const options = computed(() => allergies.value?.map(allergy => (allergy.label)))
   return {
     data: allergies,
     allergiesOptions,
     error,
+    options,
     loading,
     getAllergies,
     options,
