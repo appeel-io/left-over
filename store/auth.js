@@ -25,10 +25,6 @@ export const useAuthStore = defineStore('useAuthStore', {
         const { error } = await supabase.auth.signIn(credentails, options)
         if (error) throw error
       }
-      else if (credentails?.email && !credentails?.password) {
-        const { error } = await supabase.auth.signInWithOtp(credentails, options)
-        if (error) throw error
-      }
     },
     async register(credentials, form) {
       const supabase = useSupabaseClient()
