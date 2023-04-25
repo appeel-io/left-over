@@ -5,13 +5,16 @@ import { defineStore } from 'pinia'
 export const useAllergiesStore = defineStore('useAllergiesStore', () => {
   const supabase = useSupabaseClient()
 
-  const allergies = ref(null)
+  const allergies = ref([])
   const error = ref(null)
   const loading = ref(false)
+
+  const allergiesOptions = computed(() => allergies.value.map(({ label }) => label))
 
   async function getAllergies() {
     error.value = null
     loading.value = true
+
     try {
       const { data, error: err } = await supabase.from('allergies').select('*')
       if (err) throw err
@@ -31,6 +34,7 @@ export const useAllergiesStore = defineStore('useAllergiesStore', () => {
 
   return {
     data: allergies,
+    allergiesOptions,
     error,
     options,
     loading,
