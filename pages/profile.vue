@@ -14,7 +14,6 @@ const allergiesStore = useAllergiesStore()
       <Head>
         <Title>Give</Title>
       </Head>
-      <!-- <div class="pb-12 flex pr-3 mt-2 h-full gap-5"> -->
       <FormKit
         v-if="profileStore.profile"
         type="form"
@@ -38,7 +37,7 @@ const allergiesStore = useAllergiesStore()
       <FormKit
         v-if="addressStore.address"
         type="form"
-        :value="addressStore.address"
+        :value="addressStore.address[0]"
         submit-label="Save"
         @submit="(data) => {
           addressStore.updateAddress(data)
@@ -50,7 +49,7 @@ const allergiesStore = useAllergiesStore()
           <h1 class="text-primary">
             address
           </h1>
-          <Input name="zip" type="text" label="zip" />
+          <Input name="zip" type="number" label="zip" />
           <Input name="street" type="text" label="street" />
           <Input name="house_number" type="number" label="House number" />
           <Input name="lat" type="number" label="lat" />
@@ -58,6 +57,5 @@ const allergiesStore = useAllergiesStore()
         </div>
       </FormKit>
     </div>
-    <!-- </div> -->
   </NuxtLayout>
 </template>

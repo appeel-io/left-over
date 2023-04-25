@@ -10,6 +10,17 @@ export const useAddressStore = defineStore('useAddressStore', () => {
   const error = ref(null)
   const loading = ref(null)
 
+  async function getGeoFromAdress() {
+    // const { data, error } = await useFetch('https://api.geoapify.com/v1/geocode/search?text=38%20Upper%20Montagu%20Street%2C%20Westminster%20W1H%201LJ%2C%20United%20Kingdom&apiKey=7b25bc7a723044b595137f0306ea297a')
+
+    // console.log(data)
+    // const { data, error } = await supabase.rpc('get_geo_from_address', {
+    //   address: address,
+    // })
+    // if (error) throw error
+    // return data
+  }
+
   async function getAddress() {
     error.value = null
     loading.value = true
@@ -29,11 +40,12 @@ export const useAddressStore = defineStore('useAddressStore', () => {
 
   async function updateAddress(newData) {
     try {
-      const { error } = await supabase
-        .from('address')
-        .upsert({ user_id: user.value.id, ...newData })
-        .eq('id', id)
-      if (error) throw error
+      await getGeoFromAdress(newData.address)
+      // const { error } = await supabase
+      //   .from('address')
+      //   .upsert({ user_id: user.value.id, ...newData })
+      //   .eq('id', id)
+      // if (error) throw error
     }
     catch (error) {
       console.error(error)
