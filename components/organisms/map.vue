@@ -123,8 +123,12 @@ setTimeout(() => {
 </script>
 
 <template>
-  <section class="relative w-fit">
-    <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
+  <section class="relative">
+    <div
+      id="leafletmap"
+      ref="mapElement"
+      class="relative z-10 w-full h-[500px]"
+    />
     <Button
       class="z-20 right-10 top-7 absolute"
       label="enable location"

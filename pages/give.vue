@@ -2,9 +2,11 @@
 import { useCategoriesStore } from '@/store/categories'
 import { useAddressStore } from '@/store/address'
 import { usePostingsStore } from '@/store/postings'
+import { useAllergiesStore } from '~/store/allergies'
 const categoriesStore = useCategoriesStore()
 const addressStore = useAddressStore()
 const postingsStore = usePostingsStore()
+const allergiesStore = useAllergiesStore()
 </script>
 <template>
   <NuxtLayout>
@@ -16,7 +18,7 @@ const postingsStore = usePostingsStore()
         <div class="pb-12 grow pr-3 mt-2 h-full">
           <FormKit
             type="form"
-            :value="{name: '', description: '', category: '', expiration_date_item: '', address: ''}"
+            :value="{name: '', description: '', category: '', expiration_date_item: '', address: '', allergies: ''}"
             submit-label="Give"
             @submit="postingsStore.addPosting"
           >
@@ -32,13 +34,6 @@ const postingsStore = usePostingsStore()
 
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="description" type="textarea" label="Description" />
-                </div>
-              </div>
-            </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
-              <div class="sm:col-span-3">
-                <div class="mt-2">
                   <Input
                     name="category"
                     type="select"
@@ -47,12 +42,6 @@ const postingsStore = usePostingsStore()
                     placeholder="Select Category"
                     value=""
                   />
-                </div>
-              </div>
-
-              <div class="sm:col-span-3">
-                <div class="mt-2">
-                  <Input name="expiration_date_post" type="date" label="Expiration Date Post" />
                 </div>
               </div>
             </div>
@@ -64,8 +53,32 @@ const postingsStore = usePostingsStore()
               </div>
 
               <div class="sm:col-span-3">
+                <div class="mt-2" />
+              </div>
+            </div>
+            <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <div class="mt-2">
+                  <Input name="expiration_date_post" type="date" label="Expiration Date Post" />
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
                 <div class="mt-2">
                   <Input name="expiration_date_item" type="date" label="Expiration Date Item" />
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <div class="mt-2">
+                  <Input name="allergies" type="checkbox" :options="allergiesStore.options" label="Allergies" />
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <div class="mt-2">
+                  <Input name="description" type="textarea" label="Description" />
                 </div>
               </div>
             </div>

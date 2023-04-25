@@ -1,5 +1,5 @@
 <script setup>
-import { addHours, format, formatDuration, intervalToDuration } from 'date-fns'
+import { addHours, format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
 import { calcCrow } from '@/util/distanceBetweenCoords'
 
 const props = defineProps({
@@ -9,16 +9,15 @@ const props = defineProps({
 })
 
 const duration = computed(() => {
-  const dur = intervalToDuration({
-    start: props.foodItem.created_at,
-    end: addHours(props.foodItem.experation_date_item, 10),
-  })
+  const start = parseISO(props.foodItem.created_at)
+  const end = parseISO(props.foodItem.expiration_date_item)
+  const dur = intervalToDuration({ start, end: addHours(end, 10) })
 
   return formatDuration(dur, { format: ['days', 'hours', 'minutes'] })
 })
 
 const themeColor = computed(() => {
-  switch (props.foodItem.category) {
+  switch (props.foodItem.category?.label?.toLowerCase() || '') {
     case 'meat':
       return '#CC0000'
     case 'fish':
@@ -38,50 +37,42 @@ const themeColor = computed(() => {
 </script>
 
 <template>
-  <section>
-    <div
-      class="gap-3 p-2 bg-white border-2 w-64 rounded-lg relative"
-      :style="{ borderColor: themeColor }"
-    >
-      <div
-        class="absolute right-2 top-2 rounded-full text-white px-2"
-        :style="{ backgroundColor: themeColor }"
-      >
-        {{ foodItem.category }}
+  <section
+    class="w-64 gap-3 p-2 bg-gray-100 rounded-lg shadow-md"
+    :style="{
+      'box-shadow': `0 1px 6px 0 ${themeColor}`
+    }"
+  >
+    <div>
+      <div class="rounded-full text-white text-xs font-bold px-2 py-[2px]" :style="{ backgroundColor: themeColor }">
+        {{ foodItem.category?.label || '' }}
       </div>
-      <div class="text-2xl font-bold">
-        {{ foodItem.name }}
-      </div>
-
-      <div class="text-base mb-1">
-        time left: {{ duration }}
-      </div>
-
-      <div class="text-base mb-1">
-        experation date: {{ format(foodItem.experation_date_post, 'dd/mm/yy') }}
-      </div>
-
-      <div>Available for pickup</div>
-      <div class="text-base">
-        {{ `${format( foodItem.retrieval_start_range, 'hh:mm')} - ${format( foodItem.retrieval_end_range, 'hh:mm')} ` }}
-      </div>
-
-      <div>Distance from your location</div>
-      <div class="text-base">
-        {{ calcCrow(userLatitude, userLongitude, foodItem.profile.latitude, foodItem.profile.longitude) }} KM
-      </div>
-
-      <div class="my-5 ml-4">
-        <div class="text-base font-bold">
-          {{ foodItem.profile.name }}
-        </div>
-        <div class="text-base">
-          {{ foodItem.description }}
-        </div>
-      </div>
-      <Button
-        label="RESERVE"
-      />
     </div>
+    <div class="text-2xl font-bold">
+      {{ foodItem.name }}
+    </div>
+
+    <div class="mb-1 text-base">
+      time left: {{ duration }}
+    </div>
+
+    <div class="mb-1 text-base">
+      experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
+    </div>
+
+    <div>Distance from your location</div>
+    <div class="text-base">
+      {{ calcCrow(userLatitude, userLongitude, foodItem.address.lat, foodItem.address.long) }} KM
+    </div>
+
+    <div class="my-5 ml-4">
+      <div class="text-base font-bold">
+        {{ foodItem.created_by.name }}
+      </div>
+      <div class="text-base">
+        {{ foodItem.description }}
+      </div>
+    </div>
+    <Button label="RESERVE" />
   </section>
 </template>

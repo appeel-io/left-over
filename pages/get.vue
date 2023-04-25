@@ -1,15 +1,21 @@
 <script setup>
 import { usePostingsStore } from '@/store/postings'
-const store = usePostingsStore()
+
+const postingsStore = usePostingsStore()
+
 </script>
 
 <template>
   <NuxtLayout>
-    <h1 class="text-3xl text-primary mt-10">
-      Find some Left Overs
-    </h1>
-    <div v-if="store.data">
-      <Map :food-items="store.data" class="mt-5" />
-    </div>
+    <section class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 min-h-[85vh]">
+      <GetSidebar />
+
+      <div class="col-span-2 lg:col-span-3 xl:col-span-4">
+        <div v-if="postingsStore.data" class="grid">
+          <FoodItemsList :food-items="postingsStore.data" />
+          <Map :food-items="postingsStore.data" />
+        </div>
+      </div>
+    </section>
   </NuxtLayout>
 </template>
