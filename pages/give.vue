@@ -1,8 +1,10 @@
 <script setup>
 import { useCategoriesStore } from '@/store/categories'
 import { useAddressStore } from '@/store/address'
+import { usePostingsStore } from '@/store/postings'
 const categoriesStore = useCategoriesStore()
 const addressStore = useAddressStore()
+const postingsStore = usePostingsStore()
 </script>
 <template>
   <NuxtLayout>
@@ -14,9 +16,9 @@ const addressStore = useAddressStore()
         <div class="pb-12 grow pr-3 mt-2 h-full">
           <FormKit
             type="form"
-            :value="{itemName: '', description: '', category: '', expirationDate: ''}"
+            :value="{name: '', description: '', category: '', expiration_date_item: '', address: ''}"
             submit-label="Give"
-            @submit="(data) => {}"
+            @submit="postingsStore.addPosting"
           >
             <h1 class="text-primary">
               Give
@@ -24,7 +26,7 @@ const addressStore = useAddressStore()
             <div class="mt-10 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="itemName" type="text" label="Item Name" />
+                  <Input name="name" type="text" label="Item Name" />
                 </div>
               </div>
 
@@ -37,43 +39,36 @@ const addressStore = useAddressStore()
             <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="category" type="select" :options="categoriesStore.options" label="Category" />
+                  <Input
+                    name="category"
+                    type="select"
+                    :options="categoriesStore.options"
+                    label="Category"
+                    placeholder="Select Category"
+                    value=""
+                  />
                 </div>
               </div>
 
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="expirationDate" type="date" label="Expiration Date" />
+                  <Input name="expiration_date_post" type="date" label="Expiration Date Post" />
                 </div>
               </div>
             </div>
             <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="addresses" type="select" :options="addressStore.options" label="Address" />
+                  <Input placeholder="Select address" name="address" type="select" :options="addressStore.options" label="Address" />
                 </div>
               </div>
 
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="expirationDate" type="date" label="Expiration Date" />
+                  <Input name="expiration_date_item" type="date" label="Expiration Date Item" />
                 </div>
               </div>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
-              <div class="sm:col-span-3">
-                <div class="mt-2">
-                  <Input name="category" type="select" :options="categoriesStore.options" label="Category" />
-                </div>
-              </div>
-
-              <div class="sm:col-span-3">
-                <div class="mt-2">
-                  <Input name="expirationDate" type="date" label="Expiration Date" />
-                </div>
-              </div>
-            </div>
-            <div class="mt-6 grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6 flex flex-row-reverse mr-6" />
           </FormKit>
         </div>
 

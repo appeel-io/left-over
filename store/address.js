@@ -40,7 +40,7 @@ export const useAddressStore = defineStore('useAddressStore', () => {
     }
   }
   const options = computed(() => address.value?.map(e => ({
-    id: e.id, label: `${e.street} ${e.house_number}`,
+    value: e.id, label: `${e.street} ${e.house_number}`,
   })))
   onMounted(getAddress)
 

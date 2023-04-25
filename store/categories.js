@@ -24,7 +24,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', () => {
       loading.value = false
     }
   }
-  const options = computed(() => categories.value?.map(e => ({ id: e.id, label: e.label })))
+  const options = computed(() => categories.value?.map(e => ({ value: e.id, label: e.label })))
 
   onMounted(getCategories)
 
