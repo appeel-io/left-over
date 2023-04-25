@@ -40,7 +40,6 @@ const allergiesStore = useAllergiesStore()
                     :options="categoriesStore.options"
                     label="Category"
                     placeholder="Select Category"
-                    value=""
                   />
                 </div>
               </div>
