@@ -38,14 +38,18 @@ const themeColor = computed(() => {
 
 <template>
   <section
-    class="gap-3 p-2 bg-white border-2 w-64 rounded-lg relative"
-    :style="{ borderColor: themeColor }"
+    class="gap-3 p-2 bg-gray-100 shadow-md w-64 rounded-lg"
+    :style="{
+      'box-shadow': `0 1px 6px 0 ${themeColor}`
+    }"
   >
-    <div
-      class="absolute right-2 top-2 rounded-full text-white px-2"
-      :style="{ backgroundColor: themeColor }"
-    >
-      {{ foodItem.category?.label || '' }}
+    <div>
+      <div
+        class="rounded-full text-white text-xs font-bold px-2 py-[2px]"
+        :style="{ backgroundColor: themeColor }"
+      >
+        {{ foodItem.category?.label || '' }}
+      </div>
     </div>
     <div class="text-2xl font-bold">
       {{ foodItem.name }}
