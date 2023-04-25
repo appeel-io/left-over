@@ -8,7 +8,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
   const user = useSupabaseUser()
   const postings = ref(null)
 
-  async function filterPostings(search, radius, filters) {
+  async function filterPostings(search = '', radius, filters = [], allergies = []) {
     try {
       const baseQuery = supabase
         .from('postings')
