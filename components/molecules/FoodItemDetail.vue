@@ -1,5 +1,5 @@
 <script setup>
-import { addHours, format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
+import { format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
 import { calcCrow } from '@/util/distanceBetweenCoords'
 import { useProfileStore } from '@/store/profile'
 import { useGlobalStore } from '@/store/global'
@@ -10,11 +10,11 @@ const store = useProfileStore()
 const global = useGlobalStore()
 
 const duration = computed(() => {
-  const start = parseISO(props.foodItem.created_at)
+  const start = parseISO(new Date().toISOString())
   const end = parseISO(props.foodItem.expiration_date_item)
-  const dur = intervalToDuration({ start, end: addHours(end, 10) })
+  const dur = intervalToDuration({ start, end })
 
-  return formatDuration(dur, { format: ['days', 'hours', 'minutes'] })
+  return formatDuration(dur, { format: ['years', 'months', 'days', 'hours', 'minutes'] })
 })
 
 const themeColor = computed(() => props.foodItem.category?.color || '#000000')
