@@ -1,7 +1,9 @@
 <script setup>
 import { useCategoriesStore } from '@/store/categories'
 import { useAllergiesStore } from '@/store/allergies'
+import { usePostingsStore } from '@/store/postings'
 
+const postingsStore = usePostingsStore()
 const categoriesStore = useCategoriesStore()
 const allergiesStore = useAllergiesStore()
 const radiusOptions = [5, 10, 15, 25, 35].map(i => ({ value: i, label: `${i}km` }))
@@ -9,6 +11,15 @@ const radiusOptions = [5, 10, 15, 25, 35].map(i => ({ value: i, label: `${i}km` 
 const search = ref(null)
 const radius = ref(10)
 const filters = ref([])
+
+watch(() => ({
+  search,
+  radius,
+  filters,
+}), v => postingsStore.filterPostings(v.search.value, v.radius.value, v.filters.value), {
+  deep: true,
+  immediate: true,
+})
 </script>
 
 <template>
