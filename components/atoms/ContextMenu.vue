@@ -37,7 +37,7 @@ const logout = async() => {
         class="w-10"
       >
     </button>
-    <div class="absolute right-0 top-12 block w-max" :class="{ 'invisible top-0': !isOpen }">
+    <div class="absolute right-0 top-12 block w-max z-[1]" :class="{ 'invisible top-0': !isOpen }">
       <div class="bg-white flex flex-col gap-y-2 p-6 pr-10 relative shadow-xl rounded-b rounded-tl box-border">
         <NavigationLink v-for="route in routes" :key="route.url" :url="route.url" :label="route.label" />
         <NavigationLink label="Logout" @click="logout" />
