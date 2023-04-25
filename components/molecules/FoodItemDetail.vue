@@ -38,46 +38,44 @@ const themeColor = computed(() => {
 
 <template>
   <section
-    class="gap-3 p-2 bg-gray-100 shadow-md w-64 rounded-lg"
+    class="bg-white max-w-sm w-full rounded-lg overflow-hidden hover:scale-[1.02]"
     :style="{
-      'box-shadow': `0 1px 6px 0 ${themeColor}`
+      'box-shadow': `0 0 6px -2px ${themeColor}`
     }"
   >
-    <div>
-      <div
+    <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
+      <p class="text-xs">
+        {{ calcCrow(userLatitude, userLongitude, foodItem.address.lat, foodItem.address.long) }} km away
+      </p>
+      <p
         class="rounded-full text-white text-xs font-bold px-2 py-[2px]"
         :style="{ backgroundColor: themeColor }"
       >
         {{ foodItem.category?.label || '' }}
+      </p>
+    </div>
+
+    <div class="p-4 flex flex-col min-h-[244px]">
+      <div class="text-2xl font-bold">
+        {{ foodItem.name }}
+      </div>
+      <p v-if="foodItem.created_by" class="text-sm">
+        from {{ foodItem.created_by.firstname }}
+      </p>
+      <div class="text-base pt-4 grow">
+        <div v-if="foodItem.description" class="line-clamp-3">
+          {{ foodItem.description }}
+        </div>
+        <p class="text-xs pt-2">
+          time left: {{ duration }}
+        </p>
+        <p class="text-xs">
+          experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
+        </p>
+      </div>
+      <div class="flex justify-end">
+        <Button label="RESERVE" />
       </div>
     </div>
-    <div class="text-2xl font-bold">
-      {{ foodItem.name }}
-    </div>
-
-    <div class="text-base mb-1">
-      time left: {{ duration }}
-    </div>
-
-    <div class="text-base mb-1">
-      experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
-    </div>
-
-    <div>Distance from your location</div>
-    <div class="text-base">
-      {{ calcCrow(userLatitude, userLongitude, foodItem.address.lat, foodItem.address.long) }} KM
-    </div>
-
-    <div class="my-5 ml-4">
-      <div class="text-base font-bold">
-        {{ foodItem.created_by.name }}
-      </div>
-      <div class="text-base">
-        {{ foodItem.description }}
-      </div>
-    </div>
-    <Button
-      label="RESERVE"
-    />
   </section>
 </template>
