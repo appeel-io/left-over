@@ -27,11 +27,11 @@ export const useAddressStore = defineStore('useAddressStore', () => {
     }
   }
 
-  async function updateAddress(id, newData) {
+  async function updateAddress(newData) {
     try {
       const { error } = await supabase
         .from('address')
-        .upsert({ id, ...newData })
+        .upsert({ user_id: user.value.id, ...newData })
         .eq('id', id)
       if (error) throw error
     }
