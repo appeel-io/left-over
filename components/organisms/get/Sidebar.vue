@@ -1,47 +1,32 @@
 <script setup>
 import { useCategoriesStore } from '@/store/categories'
 import { useAllergiesStore } from '@/store/allergies'
-import { usePostingsStore } from '@/store/postings'
-import { useProfileStore } from '@/store/profile'
+import { useGlobalStore } from '@/store/global'
 
-const profileStore = useProfileStore()
-const postingsStore = usePostingsStore()
 const categoriesStore = useCategoriesStore()
 const allergiesStore = useAllergiesStore()
-const radiusOptions = [5, 10, 15, 25, 35].map(i => ({ value: i, label: `${i}km` }))
-
-const search = ref(null)
-const radius = ref(10)
-const filters = ref([])
-const allergies = ref([])
-
-watch(() => ({
-  search,
-  radius,
-  filters,
-  allergies,
-}), v => postingsStore.filterPostings(v.search.value, v.radius.value, v.filters.value, v.allergies.value), {
-  deep: true,
-  immediate: true,
-})
-
-watch(() => profileStore.profile?.allergies, v => allergies.value = v)
+const globalStore = useGlobalStore()
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen p-4 space-y-4 border-l border-r">
-    <FormKit v-model="search" type="search" placeholder="Search..." label="Search" />
-
     <FormKit
-      v-model="radius"
-      type="select"
-      label="Radius"
-      name="radius"
-      :options="radiusOptions"
+      v-model="globalStore.search"
+      type="search"
+      placeholder="Search..."
+      label="Search"
     />
 
     <FormKit
-      v-model="filters"
+      v-model="globalStore.radius"
+      type="select"
+      label="Radius"
+      name="radius"
+      :options="globalStore.radiusOptions"
+    />
+
+    <FormKit
+      v-model="globalStore.filters"
       type="checkbox"
       label="Filter"
       :options="categoriesStore.categoriesOptions"
@@ -49,7 +34,7 @@ watch(() => profileStore.profile?.allergies, v => allergies.value = v)
     />
 
     <FormKit
-      v-model="allergies"
+      v-model="globalStore.allergies"
       type="checkbox"
       label="Allergies"
       :options="allergiesStore.allergiesOptions"

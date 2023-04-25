@@ -22,13 +22,10 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
 
 <template>
   <section
-    class="bg-white max-w-sm w-full rounded-lg overflow-hidden hover:scale-[1.02] cursor-pointer"
-    :style="{
-      'box-shadow': `0 0 6px -2px ${themeColor}`
-    }"
+    class="bg-white max-w-sm w-full rounded-lg overflow-hidden border hover:scale-[1.02] cursor-pointer"
     @click="global.selectedPosting = foodItem"
   >
-    <div class="flex items-center justify-between px-4 py-2 bg-gray-100">
+    <div class="flex items-center justify-between px-4 py-2 bg-gray-50">
       <p v-if="store.profile?.address[0]" class="text-xs">
         {{ calcCrow(
           store.profile.address[0].lat,
@@ -47,10 +44,10 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
     </div>
 
     <div class="p-4 flex flex-col min-h-[244px]">
-      <div class="text-2xl font-bold">
+      <div class="text-2xl font-bold" :style="{ color: themeColor }">
         {{ foodItem.name }}
       </div>
-      <p v-if="foodItem.created_by" class="text-sm">
+      <p v-if="foodItem.created_by" class="text-sm" :style="{ color: themeColor }">
         from {{ foodItem.created_by.firstname }}
       </p>
       <div class="pt-4 text-base grow">
@@ -65,7 +62,7 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
         </p>
       </div>
       <div class="flex justify-end">
-        <Button label="RESERVE" />
+        <Button label="RESERVE" :style="{ backgroundColor: themeColor }" />
       </div>
     </div>
   </section>
