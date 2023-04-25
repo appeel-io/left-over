@@ -12,8 +12,27 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .select('id, name, category(label), status, description, expiration_date_post, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
+        .select('id, name, category(id, label), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
 
+      if (error) throw error
+
+      postings.value = data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function filterPostings(search, radius, filters) {
+    try {
+      const baseQuery = supabase
+        .from('postings')
+        .select('id, name, category(id, label), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
+
+      if (search) baseQuery.ilike('name', `%${search}%`)
+      if (filters?.length) baseQuery.in('category', filters)
+
+      const { data, error } = await baseQuery
       if (error) throw error
 
       postings.value = data
@@ -27,7 +46,11 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .select('id, name, category(label), status, description, expiration_date_post, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' }).eq('id', id)
+        .select(
+          'id, name, category(id, label), status, expiration_date_item, experation_date_post, created_at, retrieval_start_range, retrieval_end_range,  created_by(firstname, lastname, rating), address(lat,long)',
+          { count: 'exact' },
+        )
+        .eq('id', id)
 
       if (error) throw error
 
@@ -91,6 +114,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     getPostings,
     getPostingById,
     addPosting,
+    filterPostings,
     updatePosting,
     deletePosting,
   }

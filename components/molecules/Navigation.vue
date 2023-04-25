@@ -13,7 +13,7 @@ const routes = ref([
       <NuxtLink to="/">
         <img
           class="w-12 mx-auto"
-          src="~/assets/images/logo.png"
+          src="~/assets/images/logo.webp"
           alt="Appeel logo"
         >
       </NuxtLink>

@@ -37,5 +37,8 @@ module.exports = {
       xl: '1920px',
     },
   },
-  plugins: [formKitTailwind],
+  plugins: [
+    formKitTailwind,
+    require('@tailwindcss/line-clamp'),
+  ],
 }

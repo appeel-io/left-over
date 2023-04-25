@@ -1,5 +1,5 @@
 <script setup>
-import { addHours, format, formatDuration, intervalToDuration } from 'date-fns'
+import { addHours, format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
 import { calcCrow } from '@/util/distanceBetweenCoords'
 
 const props = defineProps({
@@ -9,16 +9,15 @@ const props = defineProps({
 })
 
 const duration = computed(() => {
-  const dur = intervalToDuration({
-    start: props.foodItem.created_at,
-    end: addHours(props.foodItem.experation_date_item, 10),
-  })
+  const start = parseISO(props.foodItem.created_at)
+  const end = parseISO(props.foodItem.expiration_date_item)
+  const dur = intervalToDuration({ start, end: addHours(end, 10) })
 
   return formatDuration(dur, { format: ['days', 'hours', 'minutes'] })
 })
 
 const themeColor = computed(() => {
-  switch (props.foodItem.category) {
+  switch (props.foodItem.category?.label?.toLowerCase() || '') {
     case 'meat':
       return '#CC0000'
     case 'fish':
@@ -38,50 +37,45 @@ const themeColor = computed(() => {
 </script>
 
 <template>
-  <section>
-    <div
-      class="gap-3 p-2 bg-white border-2 w-64 rounded-lg relative"
-      :style="{ borderColor: themeColor }"
-    >
-      <div
-        class="absolute right-2 top-2 rounded-full text-white px-2"
+  <section
+    class="bg-white max-w-sm w-full rounded-lg overflow-hidden hover:scale-[1.02]"
+    :style="{
+      'box-shadow': `0 0 6px -2px ${themeColor}`
+    }"
+  >
+    <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
+      <p class="text-xs">
+        {{ calcCrow(userLatitude, userLongitude, foodItem.address.lat, foodItem.address.long) }} km away
+      </p>
+      <p
+        class="rounded-full text-white text-xs font-bold px-2 py-[2px]"
         :style="{ backgroundColor: themeColor }"
       >
-        {{ foodItem.category }}
-      </div>
+        {{ foodItem.category?.label || '' }}
+      </p>
+    </div>
+
+    <div class="p-4 flex flex-col min-h-[244px]">
       <div class="text-2xl font-bold">
         {{ foodItem.name }}
       </div>
-
-      <div class="text-base mb-1">
-        time left: {{ duration }}
-      </div>
-
-      <div class="text-base mb-1">
-        experation date: {{ format(foodItem.experation_date_post, 'dd/mm/yy') }}
-      </div>
-
-      <div>Available for pickup</div>
-      <div class="text-base">
-        {{ `${format( foodItem.retrieval_start_range, 'hh:mm')} - ${format( foodItem.retrieval_end_range, 'hh:mm')} ` }}
-      </div>
-
-      <div>Distance from your location</div>
-      <div class="text-base">
-        {{ calcCrow(userLatitude, userLongitude, foodItem.profile.latitude, foodItem.profile.longitude) }} KM
-      </div>
-
-      <div class="my-5 ml-4">
-        <div class="text-base font-bold">
-          {{ foodItem.profile.name }}
-        </div>
-        <div class="text-base">
+      <p v-if="foodItem.created_by" class="text-sm">
+        from {{ foodItem.created_by.firstname }}
+      </p>
+      <div class="text-base pt-4 grow">
+        <div v-if="foodItem.description" class="line-clamp-3">
           {{ foodItem.description }}
         </div>
+        <p class="text-xs pt-2">
+          time left: {{ duration }}
+        </p>
+        <p class="text-xs">
+          experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
+        </p>
       </div>
-      <Button
-        label="RESERVE"
-      />
+      <div class="flex justify-end">
+        <Button label="RESERVE" />
+      </div>
     </div>
   </section>
 </template>
