@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-
 import { defineStore } from 'pinia'
+import { arrayToPostGresArray } from '~/util/postgres'
 import { useSupabaseClient, useSupabaseUser } from '#imports'
 
 export const usePostingsStore = defineStore('usePostingsStore', () => {
@@ -8,22 +8,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
   const user = useSupabaseUser()
   const postings = ref(null)
 
-  async function getPostings() {
-    try {
-      const { data, error } = await supabase
-        .from('postings')
-        .select('id, name, category(id, label), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
-
-      if (error) throw error
-
-      postings.value = data
-    }
-    catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function filterPostings(search, radius, filters) {
+  async function filterPostings(search = '', radius, filters = [], allergies = []) {
     try {
       const baseQuery = supabase
         .from('postings')
@@ -31,6 +16,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
 
       if (search) baseQuery.ilike('name', `%${search}%`)
       if (filters?.length) baseQuery.in('category', filters)
+      if (allergies?.length) baseQuery.not('allergies', 'cs', arrayToPostGresArray(allergies))
 
       const { data, error } = await baseQuery
       if (error) throw error
@@ -107,11 +93,8 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     }
   }
 
-  onMounted(getPostings)
-
   return {
     data: postings,
-    getPostings,
     getPostingById,
     addPosting,
     filterPostings,
