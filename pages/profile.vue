@@ -51,7 +51,7 @@ const allergiesStore = useAllergiesStore()
           </h1>
           <Input name="zip" type="number" label="Zip" validation="required" />
           <Input name="street" type="text" label="Street" validation="required" />
-          <Input name="house_number" type="Number" label="House number" validation="required" />
+          <Input name="house_number" type="number" label="House number" validation="required" />
           <Input name="city" type="text" label="City" validation="required" />
           <Input name="country" type="text" label="Country" validation="required" />
         </div>
