@@ -37,9 +37,16 @@ const themeColor = computed(() => {
 </script>
 
 <template>
-  <section class="relative w-64 gap-3 p-2 bg-white border-2 rounded-lg" :style="{ borderColor: themeColor }">
-    <div class="absolute px-2 text-white rounded-full right-2 top-2" :style="{ backgroundColor: themeColor }">
-      {{ foodItem.category?.label || '' }}
+  <section
+    class="w-64 gap-3 p-2 bg-gray-100 rounded-lg shadow-md"
+    :style="{
+      'box-shadow': `0 1px 6px 0 ${themeColor}`
+    }"
+  >
+    <div>
+      <div class="rounded-full text-white text-xs font-bold px-2 py-[2px]" :style="{ backgroundColor: themeColor }">
+        {{ foodItem.category?.label || '' }}
+      </div>
     </div>
     <div class="text-2xl font-bold">
       {{ foodItem.name }}
