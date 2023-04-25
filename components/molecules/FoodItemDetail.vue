@@ -46,7 +46,7 @@ const themeColor = computed(() => {
     @click="global.selectedPosting = foodItem"
   >
     <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
-      <p v-if="store.profile.address[0]" class="text-xs">
+      <p v-if="store.profile?.address[0]" class="text-xs">
         {{ calcCrow(
           store.profile.address[0].lat,
           store.profile.address[0].long,

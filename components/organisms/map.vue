@@ -57,7 +57,7 @@ onMounted(() => {
     L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`).addTo(map.value)
 
     // Location marker
-    if (store.profile.address[0]) {
+    if (store.profile?.address[0]) {
       L.marker(
         [store.profile.address[0].lat, store.profile.address[0].long],
         { icon: getCategoryIcon('pin') },
