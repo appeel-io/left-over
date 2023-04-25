@@ -17,24 +17,7 @@ const duration = computed(() => {
   return formatDuration(dur, { format: ['days', 'hours', 'minutes'] })
 })
 
-const themeColor = computed(() => {
-  switch (props.foodItem.category?.label?.toLowerCase() || '') {
-    case 'meat':
-      return '#CC0000'
-    case 'fish':
-      return '#0000CC'
-    case 'vegetables':
-      return '#00CC00'
-    case 'fruit':
-      return '#CC00CC'
-    case 'bread':
-      return '#CC6600'
-    case 'dairy':
-      return '#00CCCC'
-    default:
-      return '#000000'
-  }
-})
+const themeColor = computed(() => props.foodItem.category?.color || '#000000')
 </script>
 
 <template>
@@ -45,7 +28,7 @@ const themeColor = computed(() => {
     }"
     @click="global.selectedPosting = foodItem"
   >
-    <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
+    <div class="flex items-center justify-between px-4 py-2 bg-gray-100">
       <p v-if="store.profile?.address[0]" class="text-xs">
         {{ calcCrow(
           store.profile.address[0].lat,
@@ -70,11 +53,11 @@ const themeColor = computed(() => {
       <p v-if="foodItem.created_by" class="text-sm">
         from {{ foodItem.created_by.firstname }}
       </p>
-      <div class="text-base pt-4 grow">
+      <div class="pt-4 text-base grow">
         <div v-if="foodItem.description" class="line-clamp-3">
           {{ foodItem.description }}
         </div>
-        <p class="text-xs pt-2">
+        <p class="pt-2 text-xs">
           time left: {{ duration }}
         </p>
         <p class="text-xs">
