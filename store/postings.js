@@ -12,7 +12,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .select('id, name, category(id, label), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
+        .select('id, name, category(id, label, icon, color), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
 
       if (error) throw error
 
@@ -27,7 +27,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const baseQuery = supabase
         .from('postings')
-        .select('id, name, category(id, label), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
+        .select('id, name, category(id, label, color, icon), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
 
       if (search) baseQuery.ilike('name', `%${search}%`)
       if (filters?.length) baseQuery.in('category', filters)
@@ -47,7 +47,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
       const { data, error } = await supabase
         .from('postings')
         .select(
-          'id, name, category(id, label), status, expiration_date_item, experation_date_post, created_at, retrieval_start_range, retrieval_end_range,  created_by(firstname, lastname, rating), address(lat,long)',
+          'id, name, category(id, label, color, icon), status, expiration_date_item, experation_date_post, created_at, retrieval_start_range, retrieval_end_range,  created_by(firstname, lastname, rating), address(lat,long)',
           { count: 'exact' },
         )
         .eq('id', id)
