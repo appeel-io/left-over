@@ -42,19 +42,22 @@ export const useAddressStore = defineStore('useAddressStore', () => {
       const geoData = await getGeoFromAdress(newData)
       const { error } = await supabase
         .from('address')
-        .update({
+        .upsert({
+          id,
           ...newData,
           ...geoData,
+          profile: user.value.id,
         })
-        .eq('id', id)
       if (error) throw error
     }
     catch (error) {
       console.error(error)
     }
   }
-
+  const options = computed(() => address.value?.map(e => ({
+    value: e.id, label: `${e.street} ${e.house_number}`,
+  })))
   onMounted(getAddress)
 
-  return { address, error, loading, updateAddress }
+  return { address, error, loading, updateAddress, options }
 })

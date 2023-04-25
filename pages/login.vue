@@ -4,18 +4,18 @@ import { useAuthStore } from '@/store/auth'
 const user = useSupabaseUser()
 const store = useAuthStore()
 const router = useRouter()
-const formData = ref({ email: '', password: '', magiclink: false })
+const formData = ref({ email: '', password: '' })
 const error = ref(null)
 const loading = ref(false)
 
 const login = async(data) => {
-  const { email, password, magiclink } = data
+  const { email, password } = data
 
   try {
     loading.value = true
-    magiclink ? await store.login({ email }) : await store.login({ email, password })
+    await store.login({ email, password })
 
-    router.push({ path: !magiclink ? '/' : '/magic-link' })
+    navigateTo('/')
   }
   catch (err) {
     error.value = err.message
@@ -55,7 +55,6 @@ watchEffect(() => {
       </div>
 
       <FormKit
-        v-slot="{ value }"
         v-model="formData"
         type="form"
         :actions="false"
@@ -75,7 +74,6 @@ watchEffect(() => {
           />
 
           <Input
-            v-if="!value.magiclink"
             label="Password"
             type="password"
             name="password"
@@ -84,9 +82,7 @@ watchEffect(() => {
             @suffix-icon-click="togglePassword"
           />
 
-          <Checkbox name="magiclink" label="Magic link" />
-
-          <div class="mx-auto">
+          <div class="mx-auto mt-8">
             <Button type="submit" emoji=" 🔐" label="Login" :disabled="loading" />
           </div>
         </div>
