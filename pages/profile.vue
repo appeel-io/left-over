@@ -26,7 +26,7 @@ const allergiesStore = useAllergiesStore()
         <div
           class="w-[500px]"
         >
-          <h1 class="text-primary">
+          <h1 class="text-primary mb-5">
             Profile
           </h1>
           <Input name="firstname" type="text" label="First name" />
@@ -46,7 +46,7 @@ const allergiesStore = useAllergiesStore()
         <div
           class="w-[500px]"
         >
-          <h1 class="text-primary">
+          <h1 class="text-primary mb-5">
             address
           </h1>
           <Input name="zip" type="number" label="Zip" validation="required" />
