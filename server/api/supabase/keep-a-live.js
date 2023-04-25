@@ -4,6 +4,6 @@ import { serverSupabaseServiceRole } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const supabase = serverSupabaseServiceRole(event)
-
-  return await supabase.from('profiles').select()
+  await supabase.from('profiles').select()
+  return 'ok'
 })
