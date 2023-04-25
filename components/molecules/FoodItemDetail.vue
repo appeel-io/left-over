@@ -46,7 +46,7 @@ const themeColor = computed(() => {
     @click="global.selectedPosting = foodItem"
   >
     <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
-      <p class="text-xs">
+      <p v-if="store.profile.address[0]" class="text-xs">
         {{ calcCrow(
           store.profile.address[0].lat,
           store.profile.address[0].long,
@@ -54,6 +54,7 @@ const themeColor = computed(() => {
           foodItem.address.long
         ) }} km away
       </p>
+      <div v-else class="grow" />
       <p
         class="rounded-full text-white text-xs font-bold px-2 py-[2px]"
         :style="{ backgroundColor: themeColor }"
