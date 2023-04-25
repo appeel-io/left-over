@@ -11,7 +11,7 @@ const allergiesStore = useAllergiesStore()
 <template>
   <NuxtLayout>
     <div class="flex flex-1 flex-col">
-      <div class="flex flex-1 flex-row mt-2">
+      <div class="flex flex-1 flex-row mt-2 ml-5">
         <Head>
           <Title>Give</Title>
         </Head>

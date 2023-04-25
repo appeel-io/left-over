@@ -26,7 +26,7 @@ const allergiesStore = useAllergiesStore()
         <div
           class="w-[500px]"
         >
-          <h1 class="text-primary">
+          <h1 class="text-primary mb-5">
             Profile
           </h1>
           <Input name="firstname" type="text" label="First name" />
@@ -46,11 +46,11 @@ const allergiesStore = useAllergiesStore()
         <div
           class="w-[500px]"
         >
-          <h1 class="text-primary">
+          <h1 class="text-primary mb-5">
             address
           </h1>
-          <Input name="zip" type="number" label="zip" validation="required" />
-          <Input name="street" type="text" label="street" validation="required" />
+          <Input name="zip" type="number" label="Zip" validation="required" />
+          <Input name="street" type="text" label="Street" validation="required" />
           <Input name="house_number" type="number" label="House number" validation="required" />
           <Input name="city" type="text" label="City" validation="required" />
           <Input name="country" type="text" label="Country" validation="required" />

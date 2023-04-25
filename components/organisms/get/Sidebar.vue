@@ -2,7 +2,9 @@
 import { useCategoriesStore } from '@/store/categories'
 import { useAllergiesStore } from '@/store/allergies'
 import { usePostingsStore } from '@/store/postings'
+import { useProfileStore } from '@/store/profile'
 
+const profileStore = useProfileStore()
 const postingsStore = usePostingsStore()
 const categoriesStore = useCategoriesStore()
 const allergiesStore = useAllergiesStore()
@@ -11,15 +13,19 @@ const radiusOptions = [5, 10, 15, 25, 35].map(i => ({ value: i, label: `${i}km` 
 const search = ref(null)
 const radius = ref(10)
 const filters = ref([])
+const allergies = ref([])
 
 watch(() => ({
   search,
   radius,
   filters,
-}), v => postingsStore.filterPostings(v.search.value, v.radius.value, v.filters.value), {
+  allergies,
+}), v => postingsStore.filterPostings(v.search.value, v.radius.value, v.filters.value, v.allergies.value), {
   deep: true,
   immediate: true,
 })
+
+watch(() => profileStore.profile?.allergies, v => allergies.value = v)
 </script>
 
 <template>
@@ -40,6 +46,14 @@ watch(() => ({
       label="Filter"
       :options="categoriesStore.categoriesOptions"
       help="Select your categories"
+    />
+
+    <FormKit
+      v-model="allergies"
+      type="checkbox"
+      label="Allergies"
+      :options="allergiesStore.allergiesOptions"
+      help="Select your allergies"
     />
   </div>
 </template>

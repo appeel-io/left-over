@@ -15,7 +15,10 @@ export const useProfileStore = defineStore('useProfileStore', () => {
     loading.value = true
     try {
       if (!user.value) throw new Error('User not logged in')
-      const { data, error: err } = await supabase.from('profiles').select('*').eq('id', user.value.id).single()
+      const { data, error: err } = await supabase.from('profiles')
+        .select('*, address(lat,long,id)')
+        .eq('id', user.value.id)
+        .single()
       if (err) throw err
       if (data) profile.value = data
     }
@@ -38,6 +41,7 @@ export const useProfileStore = defineStore('useProfileStore', () => {
       console.error(error)
     }
   }
+
   onMounted(getUserProfile)
 
   return { profile, error, loading, getUserProfile, updateProfile }
