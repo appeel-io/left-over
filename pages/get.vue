@@ -7,13 +7,15 @@ const postingsStore = usePostingsStore()
 
 <template>
   <NuxtLayout>
-    <section class="grid grid-cols-3 gap-8 lg:grid-cols-4 xl:grid-cols-5 min-h-[85vh]">
+    <section class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 min-h-[85vh]">
       <GetSidebar />
-
-      <div class="col-span-2 lg:col-span-3 xl:col-span-4">
-        <div v-if="postingsStore.data" class="grid">
-          <FoodItemsList :food-items="postingsStore.data" />
-          <Map :food-items="postingsStore.data" />
+      <div class="col-span-2 lg:col-span-3 xl:col-span-4 py-4">
+        <div v-if="postingsStore.data" class="flex flex-col gap-2">
+          <FoodItemsList :food-items="postingsStore.data" class="mx-6" />
+          <Map
+            :food-items="postingsStore.data"
+            class="rounded-lg overflow-hidden mx-6"
+          />
         </div>
       </div>
     </section>
