@@ -80,7 +80,7 @@ setTimeout(() => {
 }, 1000)
 
 watch(() => global.selectedPosting, (v) => {
-  if (v) map.value.flyTo([v.address.lat, v.address.long])
+  if (v) map.value.flyTo([v.address.lat, v.address.long], 15, { animate: true, duration: 2 })
 })
 </script>
 
