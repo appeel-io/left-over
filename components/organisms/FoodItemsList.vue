@@ -13,7 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative z-0">
     <div class="bg-white w-4 blur-sm absolute -left-2 top-1 bottom-1 z-[2]" />
     <Swiper
       v-if="foodItems.length"
@@ -31,11 +31,7 @@ onMounted(() => {
         :key="food.id"
         class="py-2 px-4 max-w-sm"
       >
-        <FoodItemDetail
-          :user-latitude="-0.16030636023550826"
-          :user-longitude="51.52016005"
-          :food-item="food"
-        />
+        <FoodItemDetail :food-item="food" />
       </SwiperSlide>
     </Swiper>
     <div class="bg-white w-4 blur-sm absolute -right-2 top-1 bottom-1 z-[2]" />

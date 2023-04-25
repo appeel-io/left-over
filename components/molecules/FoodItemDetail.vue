@@ -1,12 +1,13 @@
 <script setup>
 import { addHours, format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
 import { calcCrow } from '@/util/distanceBetweenCoords'
+import { useProfileStore } from '@/store/profile'
+import { useGlobalStore } from '@/store/global'
 
-const props = defineProps({
-  foodItem: { type: Object, required: true },
-  userLatitude: { type: Number, required: true },
-  userLongitude: { type: Number, required: true },
-})
+const props = defineProps({ foodItem: { type: Object, required: true } })
+
+const store = useProfileStore()
+const global = useGlobalStore()
 
 const duration = computed(() => {
   const start = parseISO(props.foodItem.created_at)
@@ -38,14 +39,20 @@ const themeColor = computed(() => {
 
 <template>
   <section
-    class="bg-white max-w-sm w-full rounded-lg overflow-hidden hover:scale-[1.02]"
+    class="bg-white max-w-sm w-full rounded-lg overflow-hidden hover:scale-[1.02] cursor-pointer"
     :style="{
       'box-shadow': `0 0 6px -2px ${themeColor}`
     }"
+    @click="global.selectedPosting = foodItem"
   >
     <div class="flex justify-between items-center bg-gray-100 px-4 py-2">
       <p class="text-xs">
-        {{ calcCrow(userLatitude, userLongitude, foodItem.address.lat, foodItem.address.long) }} km away
+        {{ calcCrow(
+          store.profile.address[0].lat,
+          store.profile.address[0].long,
+          foodItem.address.lat,
+          foodItem.address.long
+        ) }} km away
       </p>
       <p
         class="rounded-full text-white text-xs font-bold px-2 py-[2px]"
