@@ -10,7 +10,7 @@ const allergiesStore = useAllergiesStore()
 
 <template>
   <NuxtLayout>
-    <div class="flex flex-row gap-5 pt-10">
+    <div class="flex flex-row gap-5 pt-10 ml-10">
       <Head>
         <Title>Give</Title>
       </Head>
@@ -49,11 +49,11 @@ const allergiesStore = useAllergiesStore()
           <h1 class="text-primary">
             address
           </h1>
-          <Input name="zip" type="number" label="zip" />
-          <Input name="street" type="text" label="street" />
-          <Input name="house_number" type="number" label="House number" />
-          <Input name="city" type="text" label="City" />
-          <Input name="country" type="text" label="Country" />
+          <Input name="zip" type="number" label="zip" validation="required" />
+          <Input name="street" type="text" label="street" validation="required" />
+          <Input name="house_number" type="number" label="House number" validation="required" />
+          <Input name="city" type="text" label="City" validation="required" />
+          <Input name="country" type="text" label="Country" validation="required" />
         </div>
       </FormKit>
     </div>
