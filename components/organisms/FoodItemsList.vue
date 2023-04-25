@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <div class="relative">
-    <div class="bg-white w-6 blur-sm absolute -left-2 top-1 bottom-1 z-[2]" />
+    <div class="bg-white w-4 blur-sm absolute -left-2 top-1 bottom-1 z-[2]" />
     <Swiper
       v-if="foodItems.length"
       slides-per-view="auto"
@@ -38,7 +38,7 @@ onMounted(() => {
         />
       </SwiperSlide>
     </Swiper>
-    <div class="bg-white w-6 blur-sm absolute -right-2 top-1 bottom-1 z-[2]" />
+    <div class="bg-white w-4 blur-sm absolute -right-2 top-1 bottom-1 z-[2]" />
   </div>
 </template>
 

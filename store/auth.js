@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('useAuthStore', {
       const supabase = useSupabaseClient()
       const { user, error } = await supabase.auth.signUp(credentials)
       if (error) throw error
-      const { error: profileError } = await supabase.from('profiles').insert([{ ...form, email: credentials.email, id: user.id }])
+      const { error: profileError } = await supabase.from('profiles').insert([{ ...form, id: user.id }])
       if (profileError) throw profileError
     },
     async logout() {
