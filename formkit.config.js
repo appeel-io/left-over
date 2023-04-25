@@ -34,7 +34,7 @@ export default {
       'select': {
         label: 'block font-bold text-sm mb-1 formkit-invalid:text-red-500',
         inner: 'max-w border border-gray rounded-lg overflow-hidden focus-within:border-primary formkit-invalid:border-red-500',
-        input: 'w-full h-10 px-3 border-none rounded-lg text-base text-gray-dark placeholder-gray formkit-multiple:h-44',
+        input: 'w-full h-10 px-3 border-none rounded-lg text-base text-gray-dark placeholder-gray',
       },
       'family:date': {
         label: 'block font-bold text-sm mb-1 formkit-invalid:text-red-500',

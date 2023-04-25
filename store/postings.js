@@ -51,7 +51,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { data, error } = await supabase
         .from('postings')
-        .upsert({ user_id: user.value.id, ...newData })
+        .insert({ created_by: user.value.id, ...newData })
 
       if (error) throw error
 
@@ -59,7 +59,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     }
     catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error)
+      console.log(error, newData)
     }
   }
 
