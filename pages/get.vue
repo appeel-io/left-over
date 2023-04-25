@@ -7,7 +7,7 @@ const postingsStore = usePostingsStore()
 
 <template>
   <NuxtLayout>
-    <section class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 min-h-[85vh]">
+    <section class="grid grid-cols-3 gap-8 lg:grid-cols-4 xl:grid-cols-5 min-h-[85vh]">
       <GetSidebar />
 
       <div class="col-span-2 lg:col-span-3 xl:col-span-4">
