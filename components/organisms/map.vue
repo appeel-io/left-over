@@ -110,9 +110,9 @@ onMounted(() => {
     L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`).addTo(map.value)
 
     props.foodItems.forEach((location) => {
-      // L.marker([location.latitude, location.longitude], { icon: getCategoryIcon(location.category) }).addTo(map.value).on('click', () => {
-      //   openLocation(location)
-      // })
+      L.marker([location.address.lat, location.address.long], { icon: getCategoryIcon(location.category.label) }).addTo(map.value).on('click', () => {
+        openLocation(location)
+      })
     })
   }
 })
@@ -123,8 +123,12 @@ setTimeout(() => {
 </script>
 
 <template>
-  <section class="relative w-fit">
-    <div id="leafletmap" ref="mapElement" class="relative z-10 w-[1000px] h-[500px]" />
+  <section class="relative">
+    <div
+      id="leafletmap"
+      ref="mapElement"
+      class="relative z-10 w-full h-[500px]"
+    />
     <Button
       class="z-20 right-10 top-7 absolute"
       label="enable location"
