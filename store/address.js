@@ -42,11 +42,12 @@ export const useAddressStore = defineStore('useAddressStore', () => {
       const geoData = await getGeoFromAdress(newData)
       const { error } = await supabase
         .from('address')
-        .update({
+        .upsert({
+          id,
           ...newData,
           ...geoData,
+          profile: user.value.id,
         })
-        .eq('id', id)
       if (error) throw error
     }
     catch (error) {

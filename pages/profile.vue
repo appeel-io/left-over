@@ -40,7 +40,7 @@ const allergiesStore = useAllergiesStore()
         :value="addressStore.address[0]"
         submit-label="Save"
         @submit="(data) => {
-          addressStore.updateAddress(addressStore.address[0].id, data)
+          addressStore.updateAddress(addressStore.address[0]?.id, data)
         }"
       >
         <div

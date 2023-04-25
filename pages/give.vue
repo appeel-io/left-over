@@ -28,7 +28,7 @@ const allergiesStore = useAllergiesStore()
             <div class="mt-10 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="name" type="text" label="Item Name" />
+                  <FormKit name="name" type="text" label="Item Name" validation="required" />
                 </div>
               </div>
 
@@ -39,6 +39,7 @@ const allergiesStore = useAllergiesStore()
                     type="select"
                     :options="categoriesStore.options"
                     label="Category"
+                    validation="required"
                     placeholder="Select Category"
                   />
                 </div>
@@ -47,7 +48,14 @@ const allergiesStore = useAllergiesStore()
             <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input placeholder="Select address" name="address" type="select" :options="addressStore.options" label="Address" />
+                  <Input
+                    placeholder="Select address"
+                    validation="required"
+                    name="address"
+                    type="select"
+                    :options="addressStore.options"
+                    label="Address"
+                  />
                 </div>
               </div>
 
@@ -58,13 +66,13 @@ const allergiesStore = useAllergiesStore()
             <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="expiration_date_post" type="date" label="Expiration Date Post" />
+                  <Input name="expiration_date_post" type="date" label="Expiration Date Post" validation="required" />
                 </div>
               </div>
 
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="expiration_date_item" type="date" label="Expiration Date Item" />
+                  <Input name="expiration_date_item" type="date" label="Expiration Date Item" validation="required" />
                 </div>
               </div>
             </div>
@@ -77,7 +85,7 @@ const allergiesStore = useAllergiesStore()
 
               <div class="sm:col-span-3">
                 <div class="mt-2">
-                  <Input name="description" type="textarea" label="Description" />
+                  <Input name="description" type="textarea" label="Description" validation="required" />
                 </div>
               </div>
             </div>
