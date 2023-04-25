@@ -37,25 +37,19 @@ const themeColor = computed(() => {
 </script>
 
 <template>
-  <section
-    class="gap-3 p-2 bg-white border-2 w-64 rounded-lg relative"
-    :style="{ borderColor: themeColor }"
-  >
-    <div
-      class="absolute right-2 top-2 rounded-full text-white px-2"
-      :style="{ backgroundColor: themeColor }"
-    >
+  <section class="relative w-64 gap-3 p-2 bg-white border-2 rounded-lg" :style="{ borderColor: themeColor }">
+    <div class="absolute px-2 text-white rounded-full right-2 top-2" :style="{ backgroundColor: themeColor }">
       {{ foodItem.category?.label || '' }}
     </div>
     <div class="text-2xl font-bold">
       {{ foodItem.name }}
     </div>
 
-    <div class="text-base mb-1">
+    <div class="mb-1 text-base">
       time left: {{ duration }}
     </div>
 
-    <div class="text-base mb-1">
+    <div class="mb-1 text-base">
       experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
     </div>
 
@@ -72,8 +66,6 @@ const themeColor = computed(() => {
         {{ foodItem.description }}
       </div>
     </div>
-    <Button
-      label="RESERVE"
-    />
+    <Button label="RESERVE" />
   </section>
 </template>
