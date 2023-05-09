@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import { defineStore } from 'pinia'
 import { arrayToPostGresArray } from '~/util/postgres'
-import { useSupabaseClient, useSupabaseUser } from '#imports'
 
 export const usePostingsStore = defineStore('usePostingsStore', () => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
+
   const postings = ref(null)
 
   async function filterPostings(search = '', radius, filters = [], allergies = []) {

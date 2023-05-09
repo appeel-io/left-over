@@ -46,6 +46,7 @@ export const useAddressStore = defineStore('useAddressStore', () => {
           id,
           ...newData,
           ...geoData,
+          location: `POINT(${geoData.long} ${geoData.lat})`,
           profile: user.value.id,
         })
       if (error) throw error
