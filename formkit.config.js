@@ -77,7 +77,7 @@ export default {
         input: 'w-5 h-5 disabled:pointer-events-none disabled:bg-slate-100',
         label: 'block text-lg mb-1',
         legend: 'block font-bold text-sm mb-1 formkit-invalid:text-red-500',
-        wrapper: 'flex flex-row gap-2 items-center',
+        wrapper: 'flex flex-row gap-2 items-start',
       },
       'radio': {
         input: 'h-5 w-5 ml-1',
