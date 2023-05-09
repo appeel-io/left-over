@@ -11,7 +11,10 @@ const postingsStore = usePostingsStore()
 
       <div class="col-span-2 py-4 lg:col-span-3 xl:col-span-4">
         <div v-if="postingsStore.data" class="flex flex-col gap-8">
-          <FoodItemsList :food-items="postingsStore.data" class="mx-6" />
+          <FoodItemsList
+            :food-items="postingsStore.data"
+            class="mx-6"
+          />
           <Map
             :food-items="postingsStore.data || []"
             class="mx-6 overflow-hidden rounded-lg"
