@@ -27,6 +27,12 @@ export default {
         input: 'w-full h-10 px-3 border-none rounded-lg text-base text-gray-dark placeholder-gray',
         suffixIcon: 'flex w-10 justify-center cursor-pointer',
       },
+      'datetime-local': {
+        label: 'block font-bold text-sm mb-1 formkit-invalid:text-red-500',
+        inner: 'flex max-w border border-gray rounded-lg overflow-hidden focus-within:border-primary formkit-invalid:border-red-500',
+        input: 'w-full h-10 px-3 border-none rounded-lg text-base text-gray-dark placeholder-gray',
+        suffixIcon: 'flex w-10 justify-center cursor-pointer',
+      },
       'family:text': {
         label: 'block font-bold text-sm mb-1 formkit-invalid:text-red-500',
         inner: 'flex max-w border border-gray rounded-lg overflow-hidden focus-within:border-primary formkit-invalid:border-red-500',

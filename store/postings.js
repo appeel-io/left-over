@@ -15,7 +15,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
       const baseQuery = supabase
         .from('postings')
         .select('id, name, category(id, label, color, icon), status, description, expiration_date_item, expiration_date_post, created_at, created_by(firstname, lastname), address(lat,long)', { count: 'exact' })
-
+        .neq('created_by', user.value.id)
       if (search) baseQuery.ilike('name', `%${search}%`)
       if (filters?.length) baseQuery.in('category', filters)
       if (allergies?.length) baseQuery.not('allergies', 'cs', arrayToPostGresArray(allergies))
@@ -71,7 +71,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { error } = await supabase
         .from('postings')
-        .update({ id, user_id: user.value.id, ...newData })
+        .update(newData)
         .eq('id', id)
 
       if (error) throw error

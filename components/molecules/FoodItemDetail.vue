@@ -18,6 +18,7 @@ const duration = computed(() => {
 })
 
 const themeColor = computed(() => props.foodItem.category?.color || '#000000')
+
 </script>
 
 <template>
@@ -65,7 +66,7 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
         </p>
       </div>
       <div class="flex justify-end">
-        <Button label="RESERVE" :style="{ backgroundColor: themeColor }" />
+        <Button :disabled="foodItem.status !== 'open'" :label="foodItem.status === 'open' ? 'RESERVE' : 'Not available'" :style="{ backgroundColor: themeColor }" @click="() => global.selectedReservePosting = foodItem" />
       </div>
     </div>
   </section>
