@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 import { defineStore } from 'pinia'
+import { useProfileStore } from '@/store/profile'
 import { arrayToPostGresArray } from '~/util/postgres'
 
 export const usePostingsStore = defineStore('usePostingsStore', () => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
+  const profile = useProfileStore()
 
   const postings = ref(null)
 
@@ -22,6 +24,8 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
       if (error) throw error
 
       postings.value = data
+
+      if (radius) postings.value = useRangePostings(radius, postings.value, profile.position.lat, profile.position.long)
     }
     catch (error) {
       console.error(error)

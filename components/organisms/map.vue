@@ -1,5 +1,5 @@
 <script setup>
-import { LIcon, LMap, LMarker, LTileLayer } from '@vue-leaflet/vue-leaflet'
+import { LCircle, LIcon, LMap, LMarker, LTileLayer } from '@vue-leaflet/vue-leaflet'
 import { useProfileStore } from '@/store/profile'
 import { useGlobalStore } from '@/store/global'
 import 'leaflet/dist/leaflet.css'
@@ -27,7 +27,7 @@ const center = computed(() => {
       <ClientOnly>
         <l-map
           :use-global-leaflet="false"
-          :zoom="11"
+          :zoom="9"
           :center="center"
         >
           <l-tile-layer
@@ -35,21 +35,25 @@ const center = computed(() => {
             layer-type="base"
             name="OpenStreetMap"
           />
-          <l-marker
-            v-if="store.position?.lat && store.position?.long"
-            :lat-lng="[store.position.lat, store.position.long]"
-          >
-            <l-icon
-              :icon-size="[40, 40]"
-              class-name="bg-transparent"
-            >
-              <Icon
-                name="fluent-emoji-flat:round-pushpin"
-                size="40px"
-                class="relative bottom-2"
-              />
-            </l-icon>
-          </l-marker>
+          <template v-if="store.position?.lat && store.position?.long">
+            <l-circle
+              :lat-lng="[store.position.lat, store.position.long]"
+              :radius="global.radius * 1000"
+              color="lightblue"
+            />
+            <l-marker :lat-lng="[store.position.lat, store.position.long]">
+              <l-icon
+                :icon-size="[40, 40]"
+                class-name="bg-transparent"
+              >
+                <Icon
+                  name="fluent-emoji-flat:round-pushpin"
+                  size="40px"
+                  class="relative bottom-2"
+                />
+              </l-icon>
+            </l-marker>
+          </template>
           <l-marker
             v-for="item in props.foodItems"
             :key="item.id"
