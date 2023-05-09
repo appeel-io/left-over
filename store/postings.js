@@ -69,6 +69,10 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
 
   async function updatePosting(id, newData) {
     try {
+      const index = postings.value.findIndex(p => p.id === id)
+
+      if (index >= 0 && newData?.status) postings.value[index].status = newData.status
+
       const { error } = await supabase
         .from('postings')
         .update(newData)
