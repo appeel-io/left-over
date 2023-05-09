@@ -1,6 +1,4 @@
 <script setup>
-import Close from '@/assets/icons/close.svg'
-
 defineEmits(['close'])
 const props = defineProps({
   open: {
@@ -52,11 +50,11 @@ const props = defineProps({
                     {{ title }}
                   </div>
                   <slot v-else name="title" />
-                  <Icon class="!pt-1" @click="$emit('close')">
-                    <Close
-                      class="w-7 h-7"
-                    />
-                  </Icon>
+                  <Icon
+                    class="!pt-1 w-8 h-8 text-black cursor-pointer"
+                    name="material-symbols:close"
+                    @click="$emit('close')"
+                  />
                 </div>
                 <slot name="container" />
               </div>

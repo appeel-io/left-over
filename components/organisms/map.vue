@@ -22,7 +22,7 @@ const center = computed(() => {
 </script>
 
 <template>
-  <section class="relative">
+  <section class="relative z-10">
     <div class="h-[500px]">
       <ClientOnly>
         <l-map
