@@ -67,7 +67,7 @@ export const usePostingsStore = defineStore('usePostingsStore', () => {
     try {
       const { error } = await supabase
         .from('postings')
-        .update({ id, user_id: user.value.id, ...newData })
+        .update({ id, created_by: user.value.id, ...newData })
         .eq('id', id)
 
       if (error) throw error

@@ -1,6 +1,7 @@
 <script setup>
 import { format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
 import { useReservationsStore } from '@/store/reservations'
+import { usePostingsStore } from '@/store/postings'
 import { calcCrow } from '@/util/distanceBetweenCoords'
 import { useProfileStore } from '@/store/profile'
 import { useGlobalStore } from '@/store/global'
@@ -9,6 +10,7 @@ const props = defineProps({ foodItem: { type: Object, required: true } })
 
 const store = useProfileStore()
 const reservationsStore = useReservationsStore()
+const postingsStore = usePostingsStore()
 const global = useGlobalStore()
 const openModal = ref(false)
 
@@ -24,6 +26,7 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
 
 const confirmPickup = (data) => {
   reservationsStore.addReservation(props.foodItem.id, data)
+  postingsStore.updatePosting(props.foodItem.id, { status: 'reserved' })
   openModal.value = false
 }
 </script>
@@ -69,8 +72,9 @@ const confirmPickup = (data) => {
           experation date: {{ format(parseISO(foodItem.expiration_date_post), 'dd/MM/yy') }}
         </p>
       </div>
+      {{ foodItem.status }}
       <div class="flex justify-end">
-        <Button label="RESERVE" :style="{ backgroundColor: themeColor }" @click="() => openModal = true" />
+        <Button :disabled="foodItem.status !== 'open'" :label="foodItem.status === 'open' ? 'RESERVE' : 'Not available'" :style="{ backgroundColor: themeColor }" @click="() => openModal = true" />
       </div>
     </div>
 

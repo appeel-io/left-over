@@ -3,7 +3,7 @@ import { format, parseISO } from 'date-fns'
 
 const props = defineProps({ reservationItem: { type: Object, required: true } })
 
-const formattedAdress = computed(() => `${props.reservationItem.posting.address.street} ${props.reservationItem.posting.address.house_number}, ${props.reservationItem.posting.address.city}`)
+const formattedAdress = computed(() => `${props.reservationItem.id.address.street} ${props.reservationItem.id.address.house_number}, ${props.reservationItem.id.address.city}`)
 </script>
 
 <template>
@@ -11,9 +11,22 @@ const formattedAdress = computed(() => `${props.reservationItem.posting.address.
     class="bg-white max-w-sm w-full rounded-lg overflow-hidden border"
   >
     <div class="p-4 flex flex-col">
-      <div class="text-2xl font-bold">
-        {{ reservationItem.posting.name }}
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold">
+          {{ reservationItem.id.name }}
+        </div>
+        <p
+          class="rounded-full text-white font-bold px-2 py-[2px]"
+          :class="{
+            'bg-yellow-400' : reservationItem.id.status === 'reserved',
+            'bg-green-400' : reservationItem.id.status === 'open',
+            'bg-red-400' : reservationItem.id.status === 'closed',
+          }"
+        >
+          {{ reservationItem.id.status }}
+        </p>
       </div>
+
       <div class="pt-4 text-base grow">
         <div v-if="reservationItem.message" class="line-clamp-3">
           {{ reservationItem.message }}

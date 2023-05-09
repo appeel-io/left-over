@@ -31,7 +31,7 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
       const { data, error } = await supabase
         .from('reservations')
         .select(
-          'id, message, posting(name, address(*)), profile, pickup_date_time',
+          'id(name, address(*), status), message, profile, pickup_date_time',
           { count: 'exact' },
         )
         .eq('profile', user.value.id)
@@ -49,7 +49,7 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
     try {
       const { data, error } = await supabase
         .from('reservations')
-        .insert({ profile: user.value.id, posting: postId, ...newData })
+        .insert({ profile: user.value.id, id: postId, ...newData })
 
       if (error) throw error
 
