@@ -13,7 +13,7 @@ const global = useGlobalStore()
 const swiper = ref()
 
 onMounted(() => {
-  setTimeout(() => document.querySelector('.swiper-button-next').click(), 500)
+  if (props.foodItems.length) setTimeout(() => document.querySelector('.swiper-button-next').click(), 500)
 })
 
 watch(() => global.selectedPosting, (v) => {
