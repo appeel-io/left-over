@@ -8,8 +8,6 @@ const store = useProfileStore()
 const global = useGlobalStore()
 const config = useRuntimeConfig()
 
-const selectedLocation = ref()
-
 const props = defineProps({
   foodItems: { type: Array, required: true },
 })
@@ -40,12 +38,23 @@ const center = computed(() => {
           <l-marker
             v-if="store.position?.lat && store.position?.long"
             :lat-lng="[store.position.lat, store.position.long]"
-          />
+          >
+            <l-icon
+              :icon-size="[40, 40]"
+              class-name="bg-transparent"
+            >
+              <Icon
+                name="fluent-emoji-flat:round-pushpin"
+                size="40px"
+                class="relative bottom-2"
+              />
+            </l-icon>
+          </l-marker>
           <l-marker
             v-for="item in props.foodItems"
             :key="item.id"
             :lat-lng="[item.address.lat, item.address.long]"
-            @click="selectedLocation = item"
+            @click="global.selectedPosting = item"
           >
             <l-icon
               :icon-size="[40, 40]"
@@ -54,7 +63,7 @@ const center = computed(() => {
               <Icon
                 :name="`fluent-emoji-flat:${item.category.icon}`"
                 size="40px"
-                class="relative bottom-2 text-red-500"
+                class="relative bottom-2"
               />
             </l-icon>
           </l-marker>
@@ -74,12 +83,6 @@ const center = computed(() => {
           : store.startCurrentLocation()
       "
     />
-    <!-- <FoodItemDetail
-      v-if="selectedLocation"
-      v-click-outside="() => (selectedLocation = null)"
-      class="z-20 right-10 bottom-7 absolute"
-      :food-item="selectedLocation"
-    /> -->
   </section>
 </template>
 

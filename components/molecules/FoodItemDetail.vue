@@ -22,7 +22,10 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
 
 <template>
   <section
-    class="bg-white max-w-sm w-full rounded-lg overflow-hidden border hover:scale-[1.02] cursor-pointer"
+    class="bg-white max-w-sm w-full rounded-lg overflow-hidden border cursor-pointer"
+    :class="{
+      'duration-200 ease-in-out scale-105': global.selectedPosting?.id &&foodItem.id === global.selectedPosting.id
+    }"
     @click="global.selectedPosting = foodItem"
   >
     <div class="flex items-center justify-between px-4 py-2 bg-gray-50">
