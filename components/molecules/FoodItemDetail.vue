@@ -1,5 +1,6 @@
 <script setup>
 import { format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
+import { useReservationsStore } from '@/store/reservations'
 import { calcCrow } from '@/util/distanceBetweenCoords'
 import { useProfileStore } from '@/store/profile'
 import { useGlobalStore } from '@/store/global'
@@ -7,7 +8,9 @@ import { useGlobalStore } from '@/store/global'
 const props = defineProps({ foodItem: { type: Object, required: true } })
 
 const store = useProfileStore()
+const reservationsStore = useReservationsStore()
 const global = useGlobalStore()
+const openModal = ref(false)
 
 const duration = computed(() => {
   const start = parseISO(new Date().toISOString())
@@ -18,6 +21,11 @@ const duration = computed(() => {
 })
 
 const themeColor = computed(() => props.foodItem.category?.color || '#000000')
+
+const confirmPickup = (data) => {
+  reservationsStore.addReservation(props.foodItem.id, data)
+  openModal.value = false
+}
 </script>
 
 <template>
@@ -62,8 +70,47 @@ const themeColor = computed(() => props.foodItem.category?.color || '#000000')
         </p>
       </div>
       <div class="flex justify-end">
-        <Button label="RESERVE" :style="{ backgroundColor: themeColor }" />
+        <Button label="RESERVE" :style="{ backgroundColor: themeColor }" @click="() => openModal = true" />
       </div>
     </div>
+
+    <Modal
+      :title="foodItem.name"
+      :open="openModal"
+      @close="openModal = false"
+    >
+      <template #container>
+        <FormKit
+          type="form"
+          :actions="false"
+          message-class="text-red-500"
+          :value="{
+            pickup_date_time: '',
+            message: ''
+          }"
+          @submit="(data) => {
+            confirmPickup(data)
+          }"
+        >
+          <div class="max-w-md">
+            <div class="text-xl font-bold mb-3">
+              {{ `You are picking up food from ${foodItem.created_by.firstname} ${foodItem.created_by.lastname}` }}
+            </div>
+
+            <Input
+              name="pickup_date_time"
+              label="pick up time and date"
+              :validation="`required|date_before:${format(parseISO(foodItem.expiration_date_post), 'yyyy-MM-dd HH:mm')}`"
+              type="datetime-local"
+            />
+            <Input name="message" type="textarea" label="Personal message" />
+          </div>
+          <Button
+            type="submit"
+            label="Confirm pickup"
+          />
+        </FormKit>
+      </template>
+    </Modal>
   </section>
 </template>

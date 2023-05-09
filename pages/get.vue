@@ -2,7 +2,6 @@
 import { usePostingsStore } from '@/store/postings'
 
 const postingsStore = usePostingsStore()
-
 </script>
 
 <template>

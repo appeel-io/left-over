@@ -6,7 +6,7 @@ const profileStore = useProfileStore()
 const authStore = useAuthStore()
 
 const isOpen = ref(false)
-const routes = ref([{ url: '/profile', label: 'Profile' }])
+const routes = ref([{ url: '/profile', label: 'Profile' }, { url: '/myReservations', label: 'My reservations' }])
 
 await profileStore.getUserProfile()
 
