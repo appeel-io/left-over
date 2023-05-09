@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '~/assets/css/global.css',
   ],
   modules: [
+    'nuxt-icon',
     '@nuxtjs/supabase',
     '@formkit/nuxt',
     '@pinia/nuxt',
