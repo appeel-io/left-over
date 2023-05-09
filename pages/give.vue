@@ -1,4 +1,5 @@
 <script setup>
+import { reset } from '@formkit/core'
 import { useCategoriesStore } from '@/store/categories'
 import { useAddressStore } from '@/store/address'
 import { usePostingsStore } from '@/store/postings'
@@ -17,10 +18,14 @@ const allergiesStore = useAllergiesStore()
         </Head>
         <div class="pb-12 grow pr-3 mt-2 h-full">
           <FormKit
+            id="myForm"
             type="form"
             :value="{name: '', description: '', category: '', expiration_date_item: '', address: '', allergies: ''}"
             submit-label="Give"
-            @submit="postingsStore.addPosting"
+            @submit="() => {
+              postingsStore.addPosting
+              reset('myForm')
+            }"
           >
             <h1 class="text-primary">
               Give
@@ -97,9 +102,19 @@ const allergiesStore = useAllergiesStore()
             Fill In Guide
           </h3>
           <p>
-            item name = ??? <br>
-            description = ??? <br>
-            expiration date = should be same as product experation date <br>
+            Item Name: Enter the name of the food item you want to add, such as "Apple Pie" or "Grilled Chicken Sandwich."<br><br>
+
+            Category: Select the category that best fits the food item, such as "Desserts," "Sandwiches," or "Vegetarian." <br><br>
+
+            Address: Provide the location of the food item, such as a restaurant or home address.<br><br>
+
+            Expiration Date Post: Enter the date you are posting the food item to inform people how fresh it is. <br><br>
+
+            Expiration Date Item: Enter the expiration date of the food item to inform people how long it will last. <br><br>
+
+            Allergies: Indicate any known allergies associated with the food item, such as peanuts or gluten. <br><br>
+
+            Description: Provide any additional information about the food item, such as ingredients or preparation methods.<br><br>
           </p>
         </div>
       </div>
