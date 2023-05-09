@@ -1,4 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
 const formKitTailwind = require('@formkit/themes/tailwindcss')
 
 /** @type {import('tailwindcss').Config} */
@@ -20,8 +19,8 @@ module.exports = {
         accent: '#FFA593',
       },
       fontFamily: {
-        title: ['Inter', ...defaultTheme.fontFamily.sans],
-        text: ['Inter', ...defaultTheme.fontFamily.serif],
+        title: ['Inter'],
+        text: ['Inter'],
       },
     },
     backgroundImage: {
@@ -39,6 +38,5 @@ module.exports = {
   },
   plugins: [
     formKitTailwind,
-    require('@tailwindcss/line-clamp'),
   ],
 }
