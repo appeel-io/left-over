@@ -49,7 +49,7 @@ function getCategoryIcon(category) {
 onMounted(() => {
   if (process.client) {
     map.value = L.map(mapElement.value, {
-      center: [store.profile.address[0].lat, store.profile.address[0].long],
+      center: store.profile ? [store.profile.address[0].lat, store.profile.address[0].long] : [0, 0],
       zoom: 9,
     })
 
