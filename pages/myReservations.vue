@@ -2,11 +2,6 @@
 import { useReservationsStore } from '@/store/reservations'
 
 const store = useReservationsStore()
-const reservations = ref(null)
-
-onMounted(async() => {
-  reservations.value = await store.getReservationsForUser()
-})
 </script>
 
 <template>
@@ -18,7 +13,7 @@ onMounted(async() => {
       <h1 class="text-primary">
         My reservations
       </h1>
-      <ReservationDetail v-for="reservation in reservations" :key="reservation.id" :reservation-item="reservation" />
+      <ReservationDetail v-for="reservation in store.data" :key="reservation.id" :reservation-item="reservation" />
     </div>
   </NuxtLayout>
 </template>

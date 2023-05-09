@@ -36,9 +36,9 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
         )
         .eq('profile', user.value.id)
         .neq('cancelled', true)
-      if (error) throw error
 
-      return data
+      if (error) throw error
+      reservations.value = data
     }
     catch (error) {
       console.error(error)
@@ -47,13 +47,13 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
 
   async function addReservation(postId, newData) {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('reservations')
-        .upsert({ profile: user.value.id, id: postId, ...newData, cancelled: false })
+        .upsert({ profile: user.value.id, id: postId, ...newData, cancelled: false }).single()
+        .select('id(id, name, address(*), status), message, profile, pickup_date_time')
 
       if (error) throw error
-
-      return data
+      getReservationsForUser()
     }
     catch (error) {
       // eslint-disable-next-line no-console
@@ -63,14 +63,14 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
 
   async function updateReservation(id, newData) {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('reservations')
         .update(newData)
+        .select('id(id, name, address(*), status), message, profile, pickup_date_time')
         .eq('id', id)
 
       if (error) throw error
-
-      return data
+      getReservationsForUser()
     }
     catch (error) {
       // eslint-disable-next-line no-console
@@ -86,12 +86,15 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
         .eq('id', id)
 
       if (error) throw error
+      getReservationsForUser()
     }
     catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
     }
   }
+
+  onMounted(getReservationsForUser)
 
   return {
     data: reservations,
