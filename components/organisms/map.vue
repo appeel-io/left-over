@@ -1,104 +1,90 @@
 <script setup>
-
+import { LIcon, LMap, LMarker, LTileLayer } from '@vue-leaflet/vue-leaflet'
 import { useProfileStore } from '@/store/profile'
 import { useGlobalStore } from '@/store/global'
+import 'leaflet/dist/leaflet.css'
 
 const store = useProfileStore()
 const global = useGlobalStore()
 const config = useRuntimeConfig()
 
-const map = ref({})
-const mapElement = ref()
 const selectedLocation = ref()
 
 const props = defineProps({
   foodItems: { type: Array, required: true },
 })
 
-function openLocation(loc) {
-  selectedLocation.value = selectedLocation.value === loc ? null : loc
-}
-
-const enableLocation = () => {
-  const customIcon = L.icon({
-    iconUrl: 'https://em-content.zobj.net/thumbs/240/apple/354/red-apple_1f34e.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 30],
-  })
-
-  map.value.locate({ setView: true, maxZoom: 15 })
-    .on('locationfound', (e) => {
-      const marker = L.marker([e.latitude, e.longitude], { icon: customIcon })
-      // var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
-      //     weight: 1,
-      //     color: 'blue',
-      //     fillColor: '#cacaca',
-      //     fillOpacity: 0.2
-      // });
-      map.value.addLayer(marker)
-      // map.addLayer(circle)
-    })
-    .on('locationerror', (e) => {
-      // eslint-disable-next-line no-alert
-      alert('Location access denied.')
-    })
-}
-
-const getCategoryIcon = (category) => {
-  return L.icon({
-    iconUrl: `https://api.iconify.design/fluent-emoji-flat/${category.icon}.svg`,
-    iconSize: [40, 40],
-    iconAnchor: [20, 30],
-  })
-}
-
-onMounted(() => {
-  if (process.client) {
-    map.value = L.map(mapElement.value, {
-      center: store.profile ? [store.profile.address[0].lat, store.profile.address[0].long] : [0, 0],
-      zoom: 9,
-    })
-
-    L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`).addTo(map.value)
-
-    // Location marker
-    if (store.profile?.address[0]) {
-      L.marker(
-        [store.profile.address[0].lat, store.profile.address[0].long],
-        { icon: getCategoryIcon('pin') },
-      ).addTo(map.value)
-    }
-
-    // Food markers
-    props.foodItems.forEach((location) => {
-      L.marker([location.address.lat, location.address.long], { icon: getCategoryIcon(location.category) }).addTo(map.value).on('click', () => {
-        openLocation(location)
-      })
-    })
-  }
-})
-
-setTimeout(() => {
-  if (process.client) window.dispatchEvent(new Event('resize'))
-}, 1000)
-
-watch(() => global.selectedPosting, (v) => {
-  if (v) map.value.flyTo([v.address.lat, v.address.long], 15, { animate: true, duration: 2 })
+const center = computed(() => {
+  if (global.selectedPosting?.address)
+    return [global.selectedPosting.address.lat, global.selectedPosting.address.long]
+  else if (store.position?.lat && store.position?.long)
+    return [store.position.lat, store.position.long]
+  else return [50.8476, 4.3572] // Brussel
 })
 </script>
 
 <template>
   <section class="relative">
-    <div
-      id="leafletmap"
-      ref="mapElement"
-      class="relative z-10 w-full h-[500px]"
+    <div class="h-[500px]">
+      <ClientOnly>
+        <l-map
+          :use-global-leaflet="false"
+          :zoom="9"
+          :center="center"
+        >
+          <l-tile-layer
+            :url="`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${config.public?.leafletApiKey}`"
+            layer-type="base"
+            name="OpenStreetMap"
+          />
+          <l-marker
+            v-if="store.position?.lat && store.position?.long"
+            :lat-lng="[store.position.lat, store.position.long]"
+          />
+          <l-marker
+            v-for="item in props.foodItems"
+            :key="item.id"
+            :lat-lng="[item.address.lat, item.address.long]"
+            @click="selectedLocation = item"
+          >
+            <l-icon
+              :icon-size="[40, 40]"
+              class-name="bg-transparent"
+            >
+              <Icon
+                :name="`fluent-emoji-flat:${item.category.icon}`"
+                size="40px"
+                class="relative bottom-2 text-red-500"
+              />
+            </l-icon>
+          </l-marker>
+        </l-map>
+      </ClientOnly>
+    </div>
+    <Button
+      :label="
+        store.currentLocation && !store.geoError
+          ? 'Stop sharing location'
+          : 'Use current location'
+      "
+      class="mt-2"
+      @click="
+        store.currentLocation && !store.geoError
+          ? store.pauseCurrentLocation()
+          : store.startCurrentLocation()
+      "
     />
-    <FoodItemDetail
+    <!-- <FoodItemDetail
       v-if="selectedLocation"
       v-click-outside="() => (selectedLocation = null)"
       class="z-20 right-10 bottom-7 absolute"
       :food-item="selectedLocation"
-    />
+    /> -->
   </section>
 </template>
+
+<style>
+.leaflet-control-attribution {
+  @apply hidden;
+}
+</style>
