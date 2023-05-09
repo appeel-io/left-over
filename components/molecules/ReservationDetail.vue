@@ -1,14 +1,22 @@
 <script setup>
 import { format, parseISO } from 'date-fns'
-
+import { usePostingsStore } from '@/store/postings'
+import { useReservationsStore } from '@/store/reservations'
 const props = defineProps({ reservationItem: { type: Object, required: true } })
 
 const formattedAdress = computed(() => `${props.reservationItem.id.address.street} ${props.reservationItem.id.address.house_number}, ${props.reservationItem.id.address.city}`)
+const postingsStore = usePostingsStore()
+const reservationsStore = useReservationsStore()
+
+const cancelReservation = () => {
+  reservationsStore.updateReservation(props.reservationItem.id.id, { cancelled: true })
+  postingsStore.updatePosting(props.reservationItem.id.id, { status: 'open' })
+}
 </script>
 
 <template>
   <section
-    class="bg-white max-w-sm w-full rounded-lg overflow-hidden border"
+    class="bg-white max-w-md w-full rounded-lg overflow-hidden border"
   >
     <div class="p-4 flex flex-col">
       <div class="flex justify-between items-center">
@@ -27,7 +35,7 @@ const formattedAdress = computed(() => `${props.reservationItem.id.address.stree
         </p>
       </div>
 
-      <div class="pt-4 text-base grow">
+      <div class="pt-4 text-base grow pb-5">
         <div v-if="reservationItem.message" class="line-clamp-3">
           {{ reservationItem.message }}
         </div>
@@ -41,6 +49,12 @@ const formattedAdress = computed(() => `${props.reservationItem.id.address.stree
           location: {{ formattedAdress }}
         </p>
       </div>
+      <Button
+        type="submit"
+        label="Cancel reservation"
+        color="danger"
+        @click="cancelReservation"
+      />
     </div>
   </section>
 </template>

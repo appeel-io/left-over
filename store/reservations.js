@@ -31,11 +31,11 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
       const { data, error } = await supabase
         .from('reservations')
         .select(
-          'id(name, address(*), status), message, profile, pickup_date_time',
+          'id(id, name, address(*), status), message, profile, pickup_date_time',
           { count: 'exact' },
         )
         .eq('profile', user.value.id)
-
+        .neq('cancelled', true)
       if (error) throw error
 
       return data
@@ -49,7 +49,24 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
     try {
       const { data, error } = await supabase
         .from('reservations')
-        .insert({ profile: user.value.id, id: postId, ...newData })
+        .upsert({ profile: user.value.id, id: postId, ...newData, cancelled: false })
+
+      if (error) throw error
+
+      return data
+    }
+    catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error, newData)
+    }
+  }
+
+  async function updateReservation(id, newData) {
+    try {
+      const { data, error } = await supabase
+        .from('reservations')
+        .update(newData)
+        .eq('id', id)
 
       if (error) throw error
 
@@ -79,6 +96,7 @@ export const useReservationsStore = defineStore('useReservationsStore', () => {
   return {
     data: reservations,
     getReservationById,
+    updateReservation,
     deleteReservation,
     addReservation,
     getReservationsForUser,
