@@ -9,6 +9,7 @@ export const useGlobalStore = defineStore('useGlobalStore', () => {
   const postingsStore = usePostingsStore()
 
   const selectedPosting = ref(null)
+  const selectedReservePosting = ref(null)
   const search = ref(null)
   const radius = ref(30)
   const filters = ref([])
@@ -30,6 +31,7 @@ export const useGlobalStore = defineStore('useGlobalStore', () => {
 
   return {
     selectedPosting,
+    selectedReservePosting,
     search,
     radius,
     filters,
