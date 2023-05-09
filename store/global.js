@@ -10,11 +10,11 @@ export const useGlobalStore = defineStore('useGlobalStore', () => {
 
   const selectedPosting = ref(null)
   const search = ref(null)
-  const radius = ref(10)
+  const radius = ref(30)
   const filters = ref([])
   const allergies = ref([])
 
-  const radiusOptions = [5, 10, 15, 25, 35].map(i => ({ value: i, label: `${i}km` }))
+  const radiusOptions = [5, 10, 15, 25, 30, 40, 50, 75, 100].map(i => ({ value: i, label: `${i}km` }))
 
   watch(() => ({
     search,

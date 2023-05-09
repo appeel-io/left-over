@@ -35,7 +35,7 @@ const confirmPickup = (data) => {
   <section
     class="bg-white max-w-sm w-full rounded-lg overflow-hidden border cursor-pointer"
     :class="{
-      'duration-200 ease-in-out scale-105': global.selectedPosting?.id &&foodItem.id === global.selectedPosting.id
+      'duration-200 ease-in-out scale-105 shadow-xl': global.selectedPosting?.id && foodItem.id === global.selectedPosting.id
     }"
     @click="global.selectedPosting = foodItem"
   >

@@ -27,7 +27,7 @@ const center = computed(() => {
       <ClientOnly>
         <l-map
           :use-global-leaflet="false"
-          :zoom="9"
+          :zoom="11"
           :center="center"
         >
           <l-tile-layer
